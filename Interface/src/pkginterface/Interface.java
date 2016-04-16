@@ -5,20 +5,46 @@
  */
 package pkginterface;
 
-import se.sics.jasper.SICStus;
-import se.sics.jasper.Query;
+import se.sics.jasper.*;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Utilizador
  */
 public class Interface extends javax.swing.JFrame {
-
+    SICStus sp;
+    
+    
+    //Initalize SICStus virtual machine
+    public void loadSICStus() throws SPException {
+        sp = new SICStus();
+    }
+    //Load SICStus script
+    public void loadSICStusScript(String pathToFile) throws SPException {
+        sp.load(pathToFile);
+    }
+    
+    public void initSICStus(SICStus sp) throws SPException{
+        sp = new SICStus();
+        sp.load("src/pkginterface/ex2.pl");
+    }
+    
     /**
      * Creates new form Interface
      */
     public Interface() {
+        
+        //init do prolog
+        try {
+            initSICStus(sp);
+        } catch (SPException ex) {
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //init das janelas
         initComponents();
     }
 
@@ -428,7 +454,7 @@ public class Interface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRunActionPerformed
-        SICStus sp;
+        
         Query query;
         HashMap wayMap = new HashMap();
 
@@ -459,6 +485,7 @@ public class Interface extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+       
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
