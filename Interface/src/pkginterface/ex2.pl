@@ -67,6 +67,9 @@ servico(15,oftalmologia,hospital_de_lisboa,lisboa).
 
 
 % Extensao do predicado consulta: Data, #IdUt, #Serv, Custo  -> {V,F,D}
+-consulta(D, U, S, C) :-
+    nao(consulta(D, U, S, C)),
+    nao( excecao( consulta(D, U, S, C) ) ).
 
 consulta(2015-03-15,3,2,).
 consulta(2015-09-30,3,1,).
@@ -130,11 +133,39 @@ comprimento( S,N ) :-
 
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
-%Extensao do predicado jogo: Jogo, Arbitro, Ajudas -> {V,F,D}
+% Invariante Estrutural:  nao permitir a insercao de conhecimento
+%                         repetido (chaves diferentes)
++utente( Id, N, I, M ) :: (findall( (Id),(utente( Id, N, I, M )),S ),
+                            length( S,N ), 
+                            N == 1)
+                            .
 
--jogo(J, A, V ) :-
-    nao(jogo(J, A, V)),
-    nao( excecao( jogo(J, A, V) ) ).
++servico(Id, D, I, C) :: (findall( (Id),(servico(Id, D, I, C)),S ),
+                            length( S,N ), 
+                            N == 1)
+                            .              
+
+%uma consulta e identificada univocamente pelo conjunto Data, IdUtente, IdSev
++consulta(D, U, S, C) :: (findall( (D, U, S), (consulta(D, U, S, C)), S ),
+                            length( S,N ), 
+                            N == 1)
+                            .
+
+% Invariante Referencial: nao admitir consultas de utentes
+%                                     inexistentes
+
++consulta(D, U, S, C) ::  (findall((U),(utente( U, _, _, _ )),S ),
+                            length( S,N ), 
+                             N == 1)
+                             .
+
+% Invariante Referencial: nao admitir consultas de servicos
+%                                     inexistentes
+
++consulta(D, U, S, C) ::  (findall((S),(servico( S, _, _, _)),S ),
+                            length( S,N ), 
+                             N == 1)
+                             .
 
 % Invariante 1:  nao permitir a insercao de conhecimento
 %                         repetido (numero do jogo e chave)
