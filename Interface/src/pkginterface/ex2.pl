@@ -30,15 +30,15 @@
     nao( excecao( utente(Id, N, I, M) ) ).
 
 
-utente(1,pedro_silva,79,braga).
+utente(1,pedro_silva,79,lisboa).
 utente(2,diogo_duarte,67,braga).
-utente(3,miguel_machado,20).
-utente(4,rui_camposinhos,74).
-utente(5,nuno_campos,2).
-utente(6,filipe_oliveira,57).
-utente(7,cesar_rodrigues,26).
-utente(8,ana_pereira,4).
-utente(9,maria_martins,9).
+utente(3,miguel_machado,20,braga).
+utente(4,rui_camposinhos,74,porto).
+utente(5,nuno_campos,2,).
+utente(6,filipe_oliveira,57,).
+utente(7,cesar_rodrigues,26,vila_verde).
+utente(8,ana_pereira,4,lisboa).
+utente(9,maria_martins,9,).
 
 % Extensao do predicado servico:  #Serv, Descrição, Instituição, Cidade -> {V,F,D}
 -servico(Id, D, I, C) :-
@@ -65,29 +65,28 @@ servico(13,pediatria,hospital_de_lisboa,lisboa).
 servico(14,dermatologia,hospital_de_lisboa,lisboa).
 servico(15,oftalmologia,hospital_de_lisboa,lisboa).
 
-
 % Extensao do predicado consulta: Data, #IdUt, #Serv, Custo  -> {V,F,D}
 -consulta(D, U, S, C) :-
     nao(consulta(D, U, S, C)),
     nao( excecao( consulta(D, U, S, C) ) ).
 
-consulta(2015-03-15,3,2,).
-consulta(2015-09-30,3,1,).
+consulta(2015-03-15,3,2,64).
+consulta(2015-09-30,3,1,127).
 
-consulta(2015-08-15,diogo_duarte,dr_Diogo_Sousa,cardiologia,hospital_de_braga,).
-consulta(2015-09-01,diogo_duarte,dra_Diana_Soares,medicina_geral,hospital_de_vila_verde,).
+consulta(2015-08-15,2,4,103).
+consulta(2015-09-01,2,1,156).
 
-consulta(2014-03-05,pedro_silva,dr_Placido_Rocha,medicina_geral,hospital_de_lisboa,).
+consulta(2014-03-05,1,12,183).
 
-consulta(ana_pereira,dr_Pedro_Barroso,oftalmologia,hospital_de_lisboa,2015-02-19).
-consulta(ana_pereira,dra_Juliana_Rocha,pediatria,hospital_de_lisboa,2012-09-09).
+consulta(2015-02-19,8,dr_Pedro_Barroso,15,143).
+consulta(2012-09-09,8,dra_Juliana_Rocha,13,176).
 
-consulta(rui_camposinhos,dra_Maria_Martins,dermatologia,hospital_do_porto,2014-03-09).
-consulta(rui_camposinhos,dra_Maria_Martins,dermatologia,hospital_do_porto,2013-12-19).
+consulta(2014-03-09,4,7,178).
+consulta(2013-12-19,4,7,73).
 
-consulta(cesar_rodrigues,dr_Nuno_Machado,medicina_geral,hospital_de_braga,2012-09-09).
-consulta(cesar_rodrigues,dra_Laura_Brito,dermatologia,hospital_de_vila_verde,2012-09-08).
-consulta(cesar_rodrigues,dr_Nuno_Machado,medicina_geral,hospital_de_braga,2013-12-19).
+consulta(2012-09-09,7,1,143).
+consulta(2012-09-08,7,11,139).
+consulta(2013-12-19,7,1,118).
 
 %----------------------------------------------------------------------
 evolucao( Termo ) :-
@@ -108,13 +107,20 @@ teste( [R|LR] ) :-
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Extensao do meta-predicado demo: Questao,Resposta -> {V,F}
 
-demo( Questao,verdadeiro ) :-
-    Questao.
-demo( Questao, falso ) :-
-    -Questao.
-demo( Questao,desconhecido ) :-
+demo([],[]).
+demo([Questao|Questoes],[verdadeiro|S]) :-
+    Questao,
+    demo(Questoes,S).
+
+demo([Questao|Questoes],[falso|S]) :-
+    -Questao,
+    demo(Questoes,S).
+
+demo([Questao|Questoes],[desconhecido|S]) :-
     nao( Questao ),
-    nao( -Questao ).
+    nao( -Questao ),
+    demo(Questoes,S).
+
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Extensao do meta-predicado nao: Questao -> {V,F}
@@ -240,6 +246,4 @@ cerca(X, Sup, Inf) :-
 proximo(X, Sup, Inf) :-
       Sup is X * 1.10,
       Inf is X * 0.90. 
-
-
 
