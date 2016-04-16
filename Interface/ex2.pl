@@ -24,7 +24,7 @@
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
 
-% Extensao do predicado utente: IdUt, Nome, Idade, Morada -> {V,F,D}
+% Extensao do predicado utente: #IdUt, Nome, Idade, Morada -> {V,F,D}
 -utente(Id, N, I, M) :-
     nao(utente(Id, N, I, M)),
     nao( excecao( utente(Id, N, I, M) ) ).
@@ -34,11 +34,11 @@ utente(1,pedro_silva,79,lisboa).
 utente(2,diogo_duarte,67,braga).
 utente(3,miguel_machado,20,braga).
 utente(4,rui_camposinhos,74,porto).
-utente(5,nuno_campos,2,).
-utente(6,filipe_oliveira,57,).
+utente(5,nuno_campos,2,porto).
+utente(6,filipe_oliveira,57,vila_verde).
 utente(7,cesar_rodrigues,26,vila_verde).
 utente(8,ana_pereira,4,lisboa).
-utente(9,maria_martins,9,).
+utente(9,maria_martins,9,lisboa).
 
 % Extensao do predicado servico:  #Serv, Descrição, Instituição, Cidade -> {V,F,D}
 -servico(Id, D, I, C) :-
@@ -156,7 +156,7 @@ comprimento( S,N ) :-
                             .              
 
 %uma consulta e identificada univocamente pelo conjunto Data, IdUtente, IdSev
-+consulta(D, U, S, C) :: (findall( (D, U, S), (consulta(D, U, S, C)), S ),
++consulta(D, U, V, C) :: (findall( (D, U, V), (consulta(D, U, V, C)), S ),
                             length( S,N ), 
                             N == 1)
                             .
@@ -164,7 +164,7 @@ comprimento( S,N ) :-
 % Invariante Referencial: nao admitir consultas de utentes
 %                                     inexistentes
 
-+consulta(D, U, S, C) ::  (findall((U),(utente( U, _, _, _ )),S ),
++consulta(D, U, V, C) ::  (findall((U),(utente( U, _, _, _ )),S ),
                             length( S,N ), 
                              N == 1)
                              .
@@ -172,7 +172,7 @@ comprimento( S,N ) :-
 % Invariante Referencial: nao admitir consultas de servicos
 %                                     inexistentes
 
-+consulta(D, U, S, C) ::  (findall((S),(servico( S, _, _, _)),S ),
++consulta(D, U, V, C) ::  (findall((V),(servico( V, _, _, _)),S ),
                             length( S,N ), 
                              N == 1)
                              .

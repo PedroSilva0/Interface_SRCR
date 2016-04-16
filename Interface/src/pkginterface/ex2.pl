@@ -145,7 +145,7 @@ comprimento( S,N ) :-
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Invariante Estrutural:  nao permitir a insercao de conhecimento
 %                         repetido (chaves diferentes)
-+utente( Id, N, I, M ) :: (findall( (Id),(utente( Id, N, I, M )),S ),
++utente( Id, V, I, M ) :: (findall( (Id),(utente( Id, V, I, M )),S ),
                             length( S,N ), 
                             N == 1)
                             .
@@ -156,7 +156,7 @@ comprimento( S,N ) :-
                             .              
 
 %uma consulta e identificada univocamente pelo conjunto Data, IdUtente, IdSev
-+consulta(D, U, S, C) :: (findall( (D, U, S), (consulta(D, U, S, C)), S ),
++consulta(D, U, V, C) :: (findall( (D, U, V), (consulta(D, U, V, C)), S ),
                             length( S,N ), 
                             N == 1)
                             .
@@ -164,7 +164,7 @@ comprimento( S,N ) :-
 % Invariante Referencial: nao admitir consultas de utentes
 %                                     inexistentes
 
-+consulta(D, U, S, C) ::  (findall((U),(utente( U, _, _, _ )),S ),
++consulta(D, U, V, C) ::  (findall((U),(utente( U, _, _, _ )),S ),
                             length( S,N ), 
                              N == 1)
                              .
@@ -172,14 +172,14 @@ comprimento( S,N ) :-
 % Invariante Referencial: nao admitir consultas de servicos
 %                                     inexistentes
 
-+consulta(D, U, S, C) ::  (findall((S),(servico( S, _, _, _)),S ),
++consulta(D, U, V, C) ::  (findall((V),(servico( V, _, _, _)),S ),
                             length( S,N ), 
                              N == 1)
                              .
 
 % Invariante Referencial: não remover utentes com consultas
 
--utente(Id, N, I, M ) ::  (findall((P),(consulta(_, Id, _, _)),S ),
+-utente(Id, V, I, M ) ::  (findall((P),(consulta(_, Id, _, _)),S ),
                             length( S,N ), 
                             N == 0)
                             .
