@@ -65,6 +65,25 @@ servico(13,pediatria,hospital_de_lisboa,lisboa).
 servico(14,dermatologia,hospital_de_lisboa,lisboa).
 servico(15,oftalmologia,hospital_de_lisboa,lisboa).
 
+% Extensao do predicado consulta: Data, #IdUt, #Serv, Custo  -> {V,F,D}
+
+consulta(2015-03-15,3,2,64).
+consulta(2015-09-30,3,1,127).
+
+consulta(2015-08-15,2,4,103).
+consulta(2015-09-01,2,1,156).
+
+consulta(2014-03-05,1,12,183).
+
+consulta(2015-02-19,8,dr_Pedro_Barroso,15,143).
+consulta(2012-09-09,8,dra_Juliana_Rocha,13,176).
+
+consulta(2014-03-09,4,7,178).
+consulta(2013-12-19,4,7,73).
+
+consulta(2012-09-09,7,1,143).
+consulta(2012-09-08,7,11,139).
+consulta(2013-12-19,7,1,118).
 
 %----------------------------------------------------------------------
 evolucao( Termo ) :-
@@ -189,26 +208,4 @@ cerca(X, Sup, Inf) :-
 proximo(X, Sup, Inf) :-
       Sup is X * 1.10,
       Inf is X * 0.90. 
-
-
-% Extensao do predicado consulta: Data, #IdUt, #Serv, Custo  -> {V,F,D}
-
-consulta(2015-03-15,3,2,).
-consulta(2015-09-30,3,1,).
-
-consulta(2015-08-15,2,4,).
-consulta(2015-09-01,2,1,).
-
-consulta(2014-03-05,1,12,).
-
-consulta(2015-02-19,8,dr_Pedro_Barroso,oftalmologia,hospital_de_lisboa,).
-consulta(2012-09-09,8,dra_Juliana_Rocha,pediatria,hospital_de_lisboa,).
-
-consulta(2014-03-09,4,dra_Maria_Martins,dermatologia,hospital_do_porto,).
-consulta(2013-12-19,4,dra_Maria_Martins,dermatologia,hospital_do_porto,).
-
-consulta(2012-09-09,7,dr_Nuno_Machado,medicina_geral,hospital_de_braga,).
-consulta(2012-09-08,7,dra_Laura_Brito,dermatologia,hospital_de_vila_verde,).
-consulta(2013-12-19,7,dr_Nuno_Machado,medicina_geral,hospital_de_braga,).
-
 
