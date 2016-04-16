@@ -17,12 +17,17 @@
 % SICStus PROLOG: definicoes iniciais
 
 :- op( 900,xfy,'::' ).
-:- dynamic jogo/3.
+:- dynamic utente/4.
+:- dynamic servico/4.
+:- dynamic consulta/4.
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
 
 % Extensao do predicado utente: Utente -> {V,F,D}
+-utente(Id, N, I, M) :-
+    nao(utente(Id, N, I, M)),
+    nao( excecao( utente(Id, N, I, M) ) ).
 
 utente(1,pedro_silva,79).
 utente(2,diogo_duarte,67).
@@ -35,6 +40,9 @@ utente(8,ana_pereira,4).
 utente(9,maria_martins,9).
 
 % Extensao do predicado servico: Serviço,Instituição -> {V,F,D}
+-servico(Id, D, I, C) :-
+    nao(servico(Id, D, I, C)),
+    nao( excecao( servico(Id, D, I, C) ) ).
 
 servico(medicina_geral,hospital_de_braga).
 servico(pediatria,hospital_de_braga).
