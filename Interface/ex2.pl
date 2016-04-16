@@ -24,7 +24,7 @@
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
 
-% Extensao do predicado utente: #IdUt, Nome, Idade, Morada -> {V,F,D}
+% Extensao do predicado utente: IdUt, Nome, Idade, Morada -> {V,F,D}
 -utente(Id, N, I, M) :-
     nao(utente(Id, N, I, M)),
     nao( excecao( utente(Id, N, I, M) ) ).
@@ -34,11 +34,11 @@ utente(1,pedro_silva,79,lisboa).
 utente(2,diogo_duarte,67,braga).
 utente(3,miguel_machado,20,braga).
 utente(4,rui_camposinhos,74,porto).
-utente(5,nuno_campos,2,porto).
-utente(6,filipe_oliveira,57,vila_verde).
+utente(5,nuno_campos,2,).
+utente(6,filipe_oliveira,57,).
 utente(7,cesar_rodrigues,26,vila_verde).
 utente(8,ana_pereira,4,lisboa).
-utente(9,maria_martins,9,lisboa).
+utente(9,maria_martins,9,).
 
 % Extensao do predicado servico:  #Serv, Descrição, Instituição, Cidade -> {V,F,D}
 -servico(Id, D, I, C) :-
