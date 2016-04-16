@@ -145,20 +145,20 @@ comprimento( S,N ) :-
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Invariante Estrutural:  nao permitir a insercao de conhecimento
 %                         repetido (chaves diferentes)
-+utente( Id, V, I, M ) :: (findall( (Id),(utente( Id, V, I, M )),S ),
++utente( Id, V, I, M ) :: (findall( (Id),(utente( Id, _, _, _ )),S ),
                             length( S,N ), 
-                            N == 0)
+                            N == 1)
                             .
 
-+servico(Id, D, I, C) :: (findall( (Id),(servico(Id, D, I, C)),S ),
++servico(Id, D, I, C) :: (findall( (Id),(servico(Id, _, _, _)),S ),
                             length( S,N ), 
-                            N == 0)
+                            N == 1)
                             .              
 
 %uma consulta e identificada univocamente pelo conjunto Data, IdUtente, IdSev
-+consulta(D, U, V, C) :: (findall( (D, U, V), (consulta(D, U, V, C)), S ),
++consulta(D, U, V, C) :: (findall( (D, U, V), (consulta(D, U, V, _)), S ),
                             length( S,N ), 
-                            N == 0)
+                            N == 1)
                             .
 
 % Invariante Referencial: nao admitir consultas de utentes
