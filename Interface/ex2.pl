@@ -145,7 +145,7 @@ comprimento( S,N ) :-
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Invariante Estrutural:  nao permitir a insercao de conhecimento
 %                         repetido (chaves diferentes)
-+utente( Id, N, I, M ) :: (findall( (Id),(utente( Id, N, I, M )),S ),
++utente( Id, V, I, M ) :: (findall( (Id),(utente( Id, V, I, M )),S ),
                             length( S,N ), 
                             N == 1)
                             .
@@ -179,7 +179,7 @@ comprimento( S,N ) :-
 
 % Invariante Referencial: não remover utentes com consultas
 
--utente(Id, N, I, M ) ::  (findall((P),(consulta(_, Id, _, _)),S ),
+-utente(Id, V, I, M ) ::  (findall((P),(consulta(_, Id, _, _)),S ),
                             length( S,N ), 
                             N == 0)
                             .

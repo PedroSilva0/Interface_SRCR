@@ -147,18 +147,18 @@ comprimento( S,N ) :-
 %                         repetido (chaves diferentes)
 +utente( Id, V, I, M ) :: (findall( (Id),(utente( Id, V, I, M )),S ),
                             length( S,N ), 
-                            N == 1)
+                            N == 0)
                             .
 
 +servico(Id, D, I, C) :: (findall( (Id),(servico(Id, D, I, C)),S ),
                             length( S,N ), 
-                            N == 1)
+                            N == 0)
                             .              
 
 %uma consulta e identificada univocamente pelo conjunto Data, IdUtente, IdSev
 +consulta(D, U, V, C) :: (findall( (D, U, V), (consulta(D, U, V, C)), S ),
                             length( S,N ), 
-                            N == 1)
+                            N == 0)
                             .
 
 % Invariante Referencial: nao admitir consultas de utentes
