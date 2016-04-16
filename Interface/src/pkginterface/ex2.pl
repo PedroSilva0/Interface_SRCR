@@ -104,6 +104,10 @@ teste( [R|LR] ) :-
     R,
     teste( LR ).
 
+desevolucao( Termo ) :- findall(I,-Termo::I,Li),
+    teste(Li),
+    retract(Termo).
+
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Extensao do meta-predicado demo: Questao,Resposta -> {V,F}
 
@@ -173,77 +177,18 @@ comprimento( S,N ) :-
                              N == 1)
                              .
 
-% Invariante 1:  nao permitir a insercao de conhecimento
-%                         repetido (numero do jogo e chave)
-+jogo(J, A, V) :: (solucoes( (J, A, V),(jogo(J, _, _)), S),
-                  comprimento( S,N ), N == 1
-                  ).
+% Invariante Referencial: não remover utentes com consultas
 
-% Invariante 2:  um arbitro nao pode apitar mais do que tres partidas
-+jogo(J, A, V) :: (solucoes( A, jogo(_, A, _), S),
-                  comprimento( S,N ), N < 4
-                  ).
+-utente(Id, N, I, M ) ::  (findall((P),(consulta(_, Id, _, _)),S ),
+                            length( S,N ), 
+                            N == 0)
+                            .
 
-% Invariante 3:  um arbitro nao pode apitar duas partidas seguidas
-+jogo(J, A, V) :: (solucoes( A, (jogo(J, A, C),
-                                jogo(J1, A, C1),
-                                J2 is J+1,
-                                J1 == J2), 
-                            S),
-                  comprimento( S,N ), N == 0
-                  ).
+% Invariante Referencial: não remover servicos com consultas
 
+-servico(Id, D, I, C) ::  (findall((P),(consulta(_, _, Id, _)),S ),
+                            length( S,N ), 
+                            N == 0)
+                            .
 
-%--- JOGO 1 ---
-jogo(1,almeida,500).
-
-%--- JOGO 2 ---
-jogo(2,baltazar,xpto1).
-excecao(jogo(J,A,V)) :-
-      jogo(J,A,xpto1).
-
-%--- JOGO 3 ---
-excecao(jogo(3,costa,500)).
-excecao(jogo(3,costa,2000)).
-
-%--- JOGO 4 ---
-excecao(jogo(4,duarte,X)) :- X > 250, X < 750.
-
-%--- JOGO 5 ---
-jogo(5,edgar,xpto2).
-excecao(jogo(J,A,V)) :-
-      jogo(J,A,xpto2).
-nulo(xpto2).
-+jogo(J, A, V) :: (solucoes( (J, A, V),(jogo(5,_,Fs),nao(nulo(Fs))),S ),
-                  comprimento( S,N ), N == 0 
-                  ).
-
-%--- JOGO 6 ---
-jogo(6,francisco,250).
-excecao(jogo(6,francisco,X)) :- X > 5000.
-
-%--- JOGO 7 ---
--jogo(7,guerra,2500).
-jogo(7,guerra,xpto3).
-excecao(jogo(J,A,V)) :-
-      jogo(J,A,xpto3).
-
-%--- JOGO 8 ---
-excecao(jogo(8,ivo,X)) :- 
-      proximo(3000,Sup,Inf),
-      X > Inf, X < Sup.
-
-%--- JOGO 9 ---
-excecao(jogo(9,helder,X)) :- 
-      cerca(1000,Sup,Inf),
-      X > Inf, X < Sup.
-
-%--- Auxiliar ---
-cerca(X, Sup, Inf) :-
-      Sup is X * 1.25,
-      Inf is X * 0.75.  
-
-proximo(X, Sup, Inf) :-
-      Sup is X * 1.10,
-      Inf is X * 0.90. 
 
