@@ -24,13 +24,14 @@
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
 
-% Extensao do predicado utente: Utente -> {V,F,D}
+% Extensao do predicado utente: #IdUt, Nome, Idade, Morada -> {V,F,D}
 -utente(Id, N, I, M) :-
     nao(utente(Id, N, I, M)),
     nao( excecao( utente(Id, N, I, M) ) ).
 
-utente(1,pedro_silva,79).
-utente(2,diogo_duarte,67).
+
+utente(1,pedro_silva,79,braga).
+utente(2,diogo_duarte,67,braga).
 utente(3,miguel_machado,20).
 utente(4,rui_camposinhos,74).
 utente(5,nuno_campos,2).
@@ -39,30 +40,51 @@ utente(7,cesar_rodrigues,26).
 utente(8,ana_pereira,4).
 utente(9,maria_martins,9).
 
-% Extensao do predicado servico: Serviço,Instituição -> {V,F,D}
+% Extensao do predicado servico:  #Serv, Descrição, Instituição, Cidade -> {V,F,D}
 -servico(Id, D, I, C) :-
     nao(servico(Id, D, I, C)),
     nao( excecao( servico(Id, D, I, C) ) ).
 
-servico(medicina_geral,hospital_de_braga).
-servico(pediatria,hospital_de_braga).
-servico(oftalmologia,hospital_de_braga).
-servico(cardiologia,hospital_de_braga).
 
-servico(medicina_geral,hospital_do_porto).
-servico(pediatria,hospital_do_porto).
-servico(dermatologia,hospital_do_porto).
-servico(cardiologia,hospital_do_porto).
+servico(1,medicina_geral,hospital_de_braga,braga).
+servico(2,pediatria,hospital_de_braga,braga).
+servico(3,oftalmologia,hospital_de_braga,braga).
+servico(4,cardiologia,hospital_de_braga,braga).
 
-servico(medicina_geral,hospital_de_vila_verde).
-servico(oftalmologia,hospital_de_vila_verde).
-servico(dermatologia,hospital_de_vila_verde).
+servico(5,medicina_geral,hospital_do_porto,porto).
+servico(6,pediatria,hospital_do_porto,porto).
+servico(7,dermatologia,hospital_do_porto,porto).
+servico(8,cardiologia,hospital_do_porto,porto).
 
-servico(medicina_geral,hospital_de_lisboa).
-servico(pediatria,hospital_de_lisboa).
-servico(dermatologia,hospital_de_lisboa).
-servico(oftalmologia,hospital_de_lisboa).
+servico(9,medicina_geral,hospital_de_vila_verde,vila_verde).
+servico(10,oftalmologia,hospital_de_vila_verde,vila_verde).
+servico(11,dermatologia,hospital_de_vila_verde,vila_verde).
 
+servico(12,medicina_geral,hospital_de_lisboa,lisboa).
+servico(13,pediatria,hospital_de_lisboa,lisboa).
+servico(14,dermatologia,hospital_de_lisboa,lisboa).
+servico(15,oftalmologia,hospital_de_lisboa,lisboa).
+
+
+% Extensao do predicado consulta: Data, #IdUt, #Serv, Custo  -> {V,F,D}
+
+consulta(2015-03-15,3,2,).
+consulta(2015-09-30,3,1,).
+
+consulta(2015-08-15,diogo_duarte,dr_Diogo_Sousa,cardiologia,hospital_de_braga,).
+consulta(2015-09-01,diogo_duarte,dra_Diana_Soares,medicina_geral,hospital_de_vila_verde,).
+
+consulta(2014-03-05,pedro_silva,dr_Placido_Rocha,medicina_geral,hospital_de_lisboa,).
+
+consulta(ana_pereira,dr_Pedro_Barroso,oftalmologia,hospital_de_lisboa,2015-02-19).
+consulta(ana_pereira,dra_Juliana_Rocha,pediatria,hospital_de_lisboa,2012-09-09).
+
+consulta(rui_camposinhos,dra_Maria_Martins,dermatologia,hospital_do_porto,2014-03-09).
+consulta(rui_camposinhos,dra_Maria_Martins,dermatologia,hospital_do_porto,2013-12-19).
+
+consulta(cesar_rodrigues,dr_Nuno_Machado,medicina_geral,hospital_de_braga,2012-09-09).
+consulta(cesar_rodrigues,dra_Laura_Brito,dermatologia,hospital_de_vila_verde,2012-09-08).
+consulta(cesar_rodrigues,dr_Nuno_Machado,medicina_geral,hospital_de_braga,2013-12-19).
 
 %----------------------------------------------------------------------
 evolucao( Termo ) :-
