@@ -29,7 +29,7 @@ public class Interface extends javax.swing.JFrame {
     
     public void initSICStus(SICStus sp) throws SPException{
         sp = new SICStus();
-        sp.load("src/pkginterface/ex2.pl");
+        sp.load("tp1_vfinal");
     }
     
     /**
@@ -460,7 +460,8 @@ public class Interface extends javax.swing.JFrame {
 
         try {
             sp = new SICStus(null, null);
-            sp.restore("teste.sav");
+            sp.load("tp1_vfinal");
+            //sp.restore("teste.sav");
             query = sp.openPrologQuery(jTextFieldQuery.getText(), wayMap);
             try {
                 StringBuilder res=new StringBuilder();

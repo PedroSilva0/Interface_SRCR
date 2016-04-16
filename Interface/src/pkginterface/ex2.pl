@@ -21,6 +21,42 @@
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
+
+% Extensao do predicado utente: Utente -> {V,F,D}
+
+utente(1,pedro_silva,79).
+utente(2,diogo_duarte,67).
+utente(3,miguel_machado,20).
+utente(4,rui_camposinhos,74).
+utente(5,nuno_campos,2).
+utente(6,filipe_oliveira,57).
+utente(7,cesar_rodrigues,26).
+utente(8,ana_pereira,4).
+utente(9,maria_martins,9).
+
+% Extensao do predicado servico: Serviço,Instituição -> {V,F,D}
+
+servico(medicina_geral,hospital_de_braga).
+servico(pediatria,hospital_de_braga).
+servico(oftalmologia,hospital_de_braga).
+servico(cardiologia,hospital_de_braga).
+
+servico(medicina_geral,hospital_do_porto).
+servico(pediatria,hospital_do_porto).
+servico(dermatologia,hospital_do_porto).
+servico(cardiologia,hospital_do_porto).
+
+servico(medicina_geral,hospital_de_vila_verde).
+servico(oftalmologia,hospital_de_vila_verde).
+servico(dermatologia,hospital_de_vila_verde).
+
+servico(medicina_geral,hospital_de_lisboa).
+servico(pediatria,hospital_de_lisboa).
+servico(dermatologia,hospital_de_lisboa).
+servico(oftalmologia,hospital_de_lisboa).
+
+
+%----------------------------------------------------------------------
 evolucao( Termo ) :-
     solucoes( Invariante,+Termo::Invariante,Lista ),
     insercao( Termo ),
