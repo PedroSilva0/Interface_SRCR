@@ -104,13 +104,20 @@ teste( [R|LR] ) :-
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Extensao do meta-predicado demo: Questao,Resposta -> {V,F}
 
-demo( Questao,verdadeiro ) :-
-    Questao.
-demo( Questao, falso ) :-
-    -Questao.
-demo( Questao,desconhecido ) :-
+demo([],[]).
+demo([Questao|Questoes],[verdadeiro|S]) :-
+    Questao,
+    demo(Questoes,S).
+
+demo([Questao|Questoes],[falso|S]) :-
+    -Questao,
+    demo(Questoes,S).
+
+demo([Questao|Questoes],[desconhecido|S]) :-
     nao( Questao ),
-    nao( -Questao ).
+    nao( -Questao ),
+    demo(Questoes,S).
+
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Extensao do meta-predicado nao: Questao -> {V,F}
