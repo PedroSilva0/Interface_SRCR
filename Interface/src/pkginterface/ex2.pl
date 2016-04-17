@@ -143,8 +143,7 @@ comprimento( S,N ) :-
 
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Invariante Estrutural:  nao permitir a insercao de conhecimento
-%                         repetido (chaves diferentes)
+% Invariante Estrutural:  garantir chaves primarias unicas
 +utente( Id, V, I, M ) :: (findall( (Id),(utente( Id, _, _, _ )),S ),
                             length( S,N ), 
                             N == 1)
@@ -161,8 +160,20 @@ comprimento( S,N ) :-
                             N == 1)
                             .
 
-% Invariante Referencial: nao admitir consultas de utentes
-%                                     inexistentes
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+% Invariante Estrutural:  nao permitir a insercao de conhecimento repetido
++utente( Id, V, I, M ) :: (findall( (Id),(utente( _, V, I, M )),S ),
+                            length( S,N ), 
+                            N == 1)
+                            .   
+
++servico(Id, D, I, C) :: (findall( (Id),(servico(_, D, I, C)),S ),
+                            length( S,N ), 
+                            N == 1)
+                            .             
+
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+% Invariante Referencial: nao admitir consultas de utentes inexistentes                            
 
 +consulta(D, U, V, C) ::  (findall((U),(utente( U, _, _, _ )),S ),
                             length( S,N ), 
