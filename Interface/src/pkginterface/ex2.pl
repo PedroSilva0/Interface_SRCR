@@ -191,4 +191,9 @@ comprimento( S,N ) :-
                             N == 0)
                             .
 
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+% PONTO 1
+% Extensao do predicado serv_por_inst: Serviços,Instituição -> {V,F}
+
+serv_por_inst( LS , I) :- findall(D,servico(_, D, I, _),LS).
 

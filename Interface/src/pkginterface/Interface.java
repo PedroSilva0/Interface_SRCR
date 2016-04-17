@@ -5,6 +5,7 @@
  */
 package pkginterface;
 
+import java.util.ArrayList;
 import se.sics.jasper.*;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -15,35 +16,18 @@ import java.util.logging.Logger;
  * @author Utilizador
  */
 public class Interface extends javax.swing.JFrame {
-    SICStus sp;
+    Prolog sp;
     
-    
-    //Initalize SICStus virtual machine
-    public void loadSICStus() throws SPException {
-        sp = new SICStus();
-    }
-    //Load SICStus script
-    public void loadSICStusScript(String pathToFile) throws SPException {
-        sp.load(pathToFile);
-    }
-    
-    public void initSICStus(SICStus sp) throws SPException{
-        sp = new SICStus();
-        sp.load("tp1_vfinal");
-    }
     
     /**
      * Creates new form Interface
      */
     public Interface() {
-        
-        //init do prolog
         try {
-            initSICStus(sp);
+            sp = new Prolog("src/pkginterface/ex2.pl");
         } catch (SPException ex) {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         //init das janelas
         initComponents();
     }
@@ -455,27 +439,27 @@ public class Interface extends javax.swing.JFrame {
 
     private void jButtonRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRunActionPerformed
         
-        Query query;
-        HashMap wayMap = new HashMap();
+//        Query query;
+//        HashMap wayMap = new HashMap();
 
-        try {
-            sp = new SICStus(null, null);
-            sp.load("tp1_vfinal");
-            //sp.restore("teste.sav");
-            query = sp.openPrologQuery(jTextFieldQuery.getText(), wayMap);
-            try {
-                StringBuilder res=new StringBuilder();
-                while (query.nextSolution()) {
-                    res.append(wayMap.toString());
-                    res.append("\n");
-                }
-                jTextAreaResult.setText(res.toString());
-            } finally {
-                query.close();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            sp = new SICStus(null, null);
+//            sp.load("tp1_vfinal");
+//            //sp.restore("teste.sav");
+//            query = sp.openPrologQuery(jTextFieldQuery.getText(), wayMap);
+//            try {
+//                StringBuilder res=new StringBuilder();
+//                while (query.nextSolution()) {
+//                    res.append(wayMap.toString());
+//                    res.append("\n");
+//                }
+//                jTextAreaResult.setText(res.toString());
+//            } finally {
+//                query.close();
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }//GEN-LAST:event_jButtonRunActionPerformed
 
     private void jTextFieldCon_custoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCon_custoActionPerformed
@@ -486,13 +470,16 @@ public class Interface extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+       Interface i = new Interface();
+       i.setVisible(true);
        
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Interface().setVisible(true);
-            }
-        });
+        try {
+            ArrayList<String> q = i.sp.query("serv_por_inst(LS,'hospital_de_braga').");
+            for(String s : q)
+                System.out.println(s);
+        } catch (Exception ex) {
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
