@@ -38,13 +38,23 @@ public class Prolog {
         Query query = sp.openPrologQuery(queryStr, map);
         
         while(query.nextSolution()){
-            result.add(map.toString());
+            result.add(trim(map.toString()));
         }
         
         query.close();
         
         
         return result;
+    }
+    
+    private String trim(String str){
+        //remove caracteres desnecessarios
+        str = str.replaceAll("[/.{}()\\[\\]]", "");
+        //remove inicio: "L=...."
+        str = str.substring(2);
+        //remove ultima virgula
+        str = str.substring(0,str.length()-1);
+        return str;
     }
 
     

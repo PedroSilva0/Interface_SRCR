@@ -474,7 +474,7 @@ public class Interface extends javax.swing.JFrame {
        i.setVisible(true);
        
         try {
-            ArrayList<String> q = i.sp.query("serv_por_inst(LS,'hospital_de_braga').");
+            ArrayList<String> q = i.sp.query("serv_por_inst(L,'hospital_de_braga').");
             for(String s : q)
                 System.out.println(s);
         } catch (Exception ex) {
