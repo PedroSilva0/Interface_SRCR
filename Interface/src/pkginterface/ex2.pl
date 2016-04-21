@@ -135,6 +135,19 @@ evolucaoIncerto(Termo,Excecao):-
                             evolucao(Termo),
                             evolucao(Excecao). 
 
+% Conhecimento Interdito 
+
+evolucaoInterdito(Termo,Excecao,Nulo,Inv) :-
+                                    evolucao(Termo),
+                                    evolucao(Excecao),
+                                    evolucao(Nulo),
+                                    evolucao(Invariante). 
+
+% Conhecimento impreciso
+
+evolucaoImpreciso(Excecao):-
+                            evolucao(Excecao).
+
 %excecao(utente(A,B,C,D)) :- utente(A,B,C,xpto1).
 %insercaoIncerto(Pre,C1,C2,C3,C4,I) :- I==1, assert(Pre(C1,C2,C3,C4)), assert(excecao(Pre(A,B,C,D)):- Pre(C1,B,C,D)).
 %insercaoImpreciso(Pre,C1,C2,C3,C4,I) :- I==1, retract(Pre(C1,C2,C3,C4)), retract(excecao(Pre(A,B,C,D)):- Pre(C1,B,C,D)),!,fail.

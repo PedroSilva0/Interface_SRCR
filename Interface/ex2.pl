@@ -122,32 +122,24 @@ nulo(xpto2).
 % Evolução do conhecimento imperfeito
 
 %  Conhecimento Incerto
-% Pre -> Predicado C1->Campo1 C2->Campo2 C3->Campo3 C4->Campo4 I-> Número que indica que campo é o incerto
-
-/*evolucaoIncerto(Pre,C1,C2,C3,C4,I):- 
-    solucoes(Invariante,+Pre::Invariante,Lista),
-    insercaoIncerto(Pre,C1,C2,C3,C4,I),
-    teste(Lista).*/
 
 evolucaoIncerto(Termo,Excecao):- 
                             evolucao(Termo),
-                            evolucao(Excecao).    
+                            evolucao(Excecao).
 
-%insertTeste(A,B,C) :- assert((A(B,C)).
+% Conhecimento Interdito 
 
-%excecao(utente(A,B,C,D)) :- utente(A,B,C,xpto1).
-%insercaoIncerto(Pre,C1,C2,C3,C4,I) :- I==1, assert(Pre(C1,C2,C3,C4)), assert(excecao(Pre(A,B,C,D)):- Pre(C1,B,C,D)).
-%insercaoImpreciso(Pre,C1,C2,C3,C4,I) :- I==1, retract(Pre(C1,C2,C3,C4)), retract(excecao(Pre(A,B,C,D)):- Pre(C1,B,C,D)),!,fail.
+evolucaoInterdito(Termo,Excecao,Nulo,Inv) :-
+                                    evolucao(Termo),
+                                    evolucao(Excecao),
+                                    evolucao(Nulo),
+                                    evolucao(Invariante). 
 
-%desevolucaoImpreciso(Termo):- 
-%    solucoes(Invariante,(+excepcao(Termo)),Lista),
-%    removeImpreciso(Termo),
-%    teste(Lista).
+% Conhecimento impreciso
 
-%removeImpreciso(Termo):-
-%    retract(excepcao(Termo)).
-%removeImpT2(Termo):-
-%    assert(excepcao(Termo)),!,fail. 
+evolucaoImpreciso(Excecao):-
+                            evolucao(Excecao).
+
 
 %----------------------------------------------------------------------
 % Esta evolução dá para conhecimento positivo, negativo e imperfeito impreciso
