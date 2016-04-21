@@ -124,12 +124,16 @@ nulo(xpto2).
 %  Conhecimento Incerto
 % Pre -> Predicado C1->Campo1 C2->Campo2 C3->Campo3 C4->Campo4 I-> Número que indica que campo é o incerto
 
-evolucaoIncerto(Pre,C1,C2,C3,C4,I):- 
+/*evolucaoIncerto(Pre,C1,C2,C3,C4,I):- 
     solucoes(Invariante,+Pre::Invariante,Lista),
     insercaoIncerto(Pre,C1,C2,C3,C4,I),
-    teste(Lista).
+    teste(Lista).*/
 
-insertTeste(A,B,C) :- assert(utente(B,C)).
+%insertTeste(A,B,C) :- assert(utente(B,C)).
+
+evolucaoIncerto(Termo,Excecao):- 
+                            evolucao(Termo),
+                            evolucao(Excecao). 
 
 %excecao(utente(A,B,C,D)) :- utente(A,B,C,xpto1).
 %insercaoIncerto(Pre,C1,C2,C3,C4,I) :- I==1, assert(Pre(C1,C2,C3,C4)), assert(excecao(Pre(A,B,C,D)):- Pre(C1,B,C,D)).
