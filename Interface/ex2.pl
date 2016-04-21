@@ -46,9 +46,9 @@ utente(9,maria_martins,9,lisboa).
 %-utente(6,filipe_oliveira,57,vila_verde).
 
 % Extensao do predicado servico:  #Serv, Descrição, Instituição, Cidade -> {V,F,D}
-%-servico(Id, D, I, C) :-
-%    nao(servico(Id, D, I, C)),
-%    nao( excecao( servico(Id, D, I, C) ) ).
+-servico(Id, D, I, C) :-
+    nao(servico(Id, D, I, C)),
+    nao( excecao( servico(Id, D, I, C) ) ).
 
 
 servico(1,medicina_geral,hospital_de_braga,braga).
@@ -71,11 +71,11 @@ servico(14,dermatologia,hospital_de_lisboa,lisboa).
 servico(15,oftalmologia,hospital_de_lisboa,lisboa).
 
 % Conhecimento negativo de Serviços
--servico(16,pediatria,hospital_de_vila_verde,vila_verde).
+/*-servico(16,pediatria,hospital_de_vila_verde,vila_verde).
 -servico(17,oftalmologia,hospital_de_porto,porto).
 -servico(18,cardiologia,hospital_de_vila_verde,vila_verde).
 -servico(19,cardiologia,hospital_de_lisboa,lisboa).
--servico(20,dermatologia,hospital_do_braga,braga).
+-servico(20,dermatologia,hospital_do_braga,braga).*/
 
 % Extensao do predicado consulta: Data, #IdUt, #Serv, Custo  -> {V,F,D}
 -consulta(D, U, S, C) :-
@@ -106,9 +106,9 @@ consulta(2013-12-19,7,1,118).
 utente(5,nuno_campos,2,xpto1).
 excecao(utente(A,B,C,D)) :- utente(A,B,C,xpto1).
 
-% IMPRECISO -- o doutor não colucou o custo das consultas. Apenas se sabe que custam entre 100 e 200 euros pela tabela de preços
-excecao(consulta(2015-08-15,2,4,C)) :- C > 100, C < 200. 
-excecao(consulta(2015-09-01,2,1,C)) :- C > 100, C < 200.
+% IMPRECISO -- o doutor não colucou o custo das consultas. Apenas se sabe que custam entre 100 a 200 euros pela tabela de preços
+excecao(consulta(2015-08-15,2,4,C)) :- C>100, C<200. 
+excecao(consulta(2015-09-01,2,1,C)) :- C>100, C<200.
 
 
 % INTERDITO -- consulta da qual nunca se irá saber qual foi o serviço prestado.
@@ -129,19 +129,21 @@ evolucaoIncerto(Pre,C1,C2,C3,C4,I):-
     insercaoIncerto(Pre,C1,C2,C3,C4,I),
     teste(Lista).
 
+insertTeste(A,B,C) :- assert(utente(B,C)).
+
 %excecao(utente(A,B,C,D)) :- utente(A,B,C,xpto1).
-insercaoIncerto(Pre,C1,C2,C3,C4,I) :- I == 1, assert(Pre(C1,C2,C3,C4)), assert(excecao(Pre(A,B,C,D)):- Pre(C1,B,C,D)).
-insercaoImpreciso(Pre,C1,C2,C3,C4,I) :- I == 1, retract(Pre(C1,C2,C3,C4)), retract(excecao(Pre(A,B,C,D)):- Pre(C1,B,C,D)),!,fail.
+%insercaoIncerto(Pre,C1,C2,C3,C4,I) :- I==1, assert(Pre(C1,C2,C3,C4)), assert(excecao(Pre(A,B,C,D)):- Pre(C1,B,C,D)).
+%insercaoImpreciso(Pre,C1,C2,C3,C4,I) :- I==1, retract(Pre(C1,C2,C3,C4)), retract(excecao(Pre(A,B,C,D)):- Pre(C1,B,C,D)),!,fail.
 
-desevolucaoImpreciso(Termo):- 
-    solucoes(Invariante,(+excepcao(Termo)),Lista),
-    removeImpreciso(Termo),
-    teste(Lista).
+%desevolucaoImpreciso(Termo):- 
+%    solucoes(Invariante,(+excepcao(Termo)),Lista),
+%    removeImpreciso(Termo),
+%    teste(Lista).
 
-removeImpreciso(Termo):-
-    retract(excepcao(Termo)).
-removeImpT2(Termo):-
-    assert(excepcao(Termo)),!,fail. 
+%removeImpreciso(Termo):-
+%    retract(excepcao(Termo)).
+%removeImpT2(Termo):-
+%    assert(excepcao(Termo)),!,fail. 
 
 %----------------------------------------------------------------------
 % Esta evolução dá para conhecimento positivo, negativo e imperfeito impreciso
@@ -228,7 +230,7 @@ comprimento( S,N ) :-
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Invariante Estrutural:  nao permitir a insercao de conhecimento repetido
-+utente( Id, V, I, M ) :: (findall( (Id),(utente( _, V, I, M )),S ),
+/*+utente( Id, V, I, M ) :: (findall( (Id),(utente( _, V, I, M )),S ),
                             length( S,N ), 
                             N == 1)
                             .   
@@ -236,7 +238,7 @@ comprimento( S,N ) :-
 +servico(Id, D, I, C) :: (findall( (Id),(servico(_, D, I, C)),S ),
                             length( S,N ), 
                             N == 1)
-                            .             
+                            .*/             
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Invariante Referencial: nao admitir consultas de utentes inexistentes                            
@@ -270,7 +272,7 @@ comprimento( S,N ) :-
 
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Invariantes de conhecimento negativo
+/*% Invariantes de conhecimento negativo
 
 % Invariante Estrutural:  garantir chaves primarias unicas
 +-servico(Id, D, I, C) :: (findall( (Id),(servico(Id, _, _, _)),S ),
@@ -288,7 +290,7 @@ comprimento( S,N ) :-
                             length( S,N ), 
                             N == 1)
                             .
-
+*/
 
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
