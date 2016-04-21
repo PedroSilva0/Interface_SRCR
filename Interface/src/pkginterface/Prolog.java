@@ -21,6 +21,10 @@ public class Prolog {
         sp = new SICStus();
         sp.load(filepath);
     }
+
+    Prolog() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     //Initalize SICStus virtual machine
     public void loadSICStus() throws SPException {
@@ -31,7 +35,7 @@ public class Prolog {
         sp.load(filepath);
     }
     
-    public ArrayList<String> query(String queryStr) throws Exception{
+    public ArrayList<String> query(SICStus sp,String queryStr) throws Exception{
         ArrayList<String> result = new ArrayList<>();
         HashMap map = new HashMap();
         

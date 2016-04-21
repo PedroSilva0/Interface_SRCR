@@ -5,9 +5,11 @@
  */
 package pkginterface;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import se.sics.jasper.*;
 import java.util.HashMap;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,18 +18,19 @@ import java.util.logging.Logger;
  * @author Utilizador
  */
 public class Interface extends javax.swing.JFrame {
-    Prolog sp;
-    
-    
+
+    static SICStus da;
+    public static final BlockingQueue<Runnable> queue = new LinkedBlockingQueue<Runnable>();
+
     /**
      * Creates new form Interface
      */
     public Interface() {
-        try {
+        /*try {
             sp = new Prolog("src/pkginterface/ex2.pl");
         } catch (SPException ex) {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
         //init das janelas
         initComponents();
     }
@@ -438,28 +441,43 @@ public class Interface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRunActionPerformed
-        
-//        Query query;
-//        HashMap wayMap = new HashMap();
+        //final String res;
+        //SICStus sp;
+        //Query query;
+        //HashMap wayMap = new HashMap();
+        /*new Thread(() -> {
+            queue.add((Runnable) () -> {
+                res=executaQuery(da, jTextFieldQuery.getText());
+            });
+        }).start();*/
 
-//        try {
-//            sp = new SICStus(null, null);
-//            sp.load("tp1_vfinal");
-//            //sp.restore("teste.sav");
-//            query = sp.openPrologQuery(jTextFieldQuery.getText(), wayMap);
-//            try {
-//                StringBuilder res=new StringBuilder();
-//                while (query.nextSolution()) {
-//                    res.append(wayMap.toString());
-//                    res.append("\n");
-//                }
-//                jTextAreaResult.setText(res.toString());
-//            } finally {
-//                query.close();
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        new Thread(() -> {
+            //String res;
+            queue.add((Runnable) () -> {
+                //String res;
+                String res= executaQuery(da, jTextFieldQuery.getText());
+                jTextAreaResult.setText(res);
+            });
+        }).start();
+
+        /*try {
+            //sp = new SICStus(null, null);
+            //sp.load("tp1_vfinal");
+            //sp.restore("teste.sav");
+            query = naoDa.openPrologQuery(jTextFieldQuery.getText(), wayMap);
+            try {
+                StringBuilder res=new StringBuilder();
+                while (query.nextSolution()) {
+                    res.append(wayMap.toString());
+                    res.append("\n");
+                }
+                jTextAreaResult.setText(res.toString());
+            } finally {
+                query.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
     }//GEN-LAST:event_jButtonRunActionPerformed
 
     private void jTextFieldCon_custoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCon_custoActionPerformed
@@ -469,9 +487,12 @@ public class Interface extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    /*public static void main(String args[]) throws SPException {
        Interface i = new Interface();
        i.setVisible(true);
+       naoDa = new SICStus(null, null);
+       naoDa.load("tp1_vfinal");
+       executaQuery(naoDa,"utente(X).");
        
         try {
             ArrayList<String> q = i.sp.query("serv_por_inst(L,'hospital_de_braga').");
@@ -480,7 +501,54 @@ public class Interface extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }*/
+    public static void main(String[] args) throws Exception {
+        Interface i = new Interface();
+        i.setVisible(true);
+        da = new SICStus(null, null);
+        da.load("tp1_vfinal");
+        while (true) {
+            queue.take().run();
+        }
     }
+
+    private static String executaQuery(SICStus sp, String instru) {
+        Query query;
+        HashMap wayMap = new HashMap();
+        StringBuilder res = new StringBuilder();
+        try {
+            //sp = new SICStus(null, null);
+            //sp.load("tp1_vfinal");
+            //sp.restore("teste.sav");
+            query = sp.openPrologQuery(instru, wayMap);
+            try {
+                //StringBuilder res = new StringBuilder();
+                while (query.nextSolution()) {
+                    res.append(wayMap.toString());
+                    res.append("\n");
+                }
+
+                //jTextAreaResult.setText(res.toString());
+                //System.out.println(trim(res.toString()));
+            } finally {
+                query.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return trim(res.toString());
+    }
+
+    private static String trim(String str) {
+        //remove caracteres desnecessarios
+        str = str.replaceAll("[/.{}()\\[\\]]", "");
+        //remove inicio: "L=...."
+        //str = str.substring(2);
+        //remove ultima virgula
+        str = str.substring(0, str.length() - 1);
+        return str;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCon_add;
