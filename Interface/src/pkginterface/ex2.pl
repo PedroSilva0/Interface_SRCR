@@ -20,6 +20,7 @@
 :- dynamic utente/4.
 :- dynamic servico/4.
 :- dynamic consulta/4.
+:- dynamic excecao/1.
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
@@ -234,10 +235,10 @@ comprimento( S,N ) :-
                             N == 1)
                             .
 
-+servico(Id, D, I, C) :: (findall( (Id),(-servico(Id, _, _, _)),S ),
+/*+servico(Id, D, I, C) :: (findall( (Id),(-servico(Id, _, _, _)),S ),
                             length( S,N ), 
                             N == 1)
-                            .                  
+                            .  */                
 
 %uma consulta e identificada univocamente pelo conjunto Data, IdUtente, IdSev
 +consulta(D, U, V, C) :: (findall( (D, U, V), (consulta(D, U, V, _)), S ),

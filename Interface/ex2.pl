@@ -20,6 +20,7 @@
 :- dynamic utente/4.
 :- dynamic servico/4.
 :- dynamic consulta/4.
+:- dynamic excecao/1.
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
@@ -122,10 +123,18 @@ nulo(xpto2).
 % Evolução do conhecimento imperfeito
 
 %  Conhecimento Incerto
+% Pre -> Predicado C1->Campo1 C2->Campo2 C3->Campo3 C4->Campo4 I-> Número que indica que campo é o incerto
+
+/*evolucaoIncerto(Pre,C1,C2,C3,C4,I):- 
+    solucoes(Invariante,+Pre::Invariante,Lista),
+    insercaoIncerto(Pre,C1,C2,C3,C4,I),
+    teste(Lista).*/
+
+%insertTeste(A,B,C) :- assert(utente(B,C)).
 
 evolucaoIncerto(Termo,Excecao):- 
                             evolucao(Termo),
-                            evolucao(Excecao).
+                            evolucao(Excecao). 
 
 % Conhecimento Interdito 
 
@@ -140,6 +149,19 @@ evolucaoInterdito(Termo,Excecao,Nulo,Inv) :-
 evolucaoImpreciso(Excecao):-
                             evolucao(Excecao).
 
+%excecao(utente(A,B,C,D)) :- utente(A,B,C,xpto1).
+%insercaoIncerto(Pre,C1,C2,C3,C4,I) :- I==1, assert(Pre(C1,C2,C3,C4)), assert(excecao(Pre(A,B,C,D)):- Pre(C1,B,C,D)).
+%insercaoImpreciso(Pre,C1,C2,C3,C4,I) :- I==1, retract(Pre(C1,C2,C3,C4)), retract(excecao(Pre(A,B,C,D)):- Pre(C1,B,C,D)),!,fail.
+
+%desevolucaoImpreciso(Termo):- 
+%    solucoes(Invariante,(+excepcao(Termo)),Lista),
+%    removeImpreciso(Termo),
+%    teste(Lista).
+
+%removeImpreciso(Termo):-
+%    retract(excepcao(Termo)).
+%removeImpT2(Termo):-
+%    assert(excepcao(Termo)),!,fail. 
 
 %----------------------------------------------------------------------
 % Esta evolução dá para conhecimento positivo, negativo e imperfeito impreciso
@@ -213,10 +235,10 @@ comprimento( S,N ) :-
                             N == 1)
                             .
 
-+servico(Id, D, I, C) :: (findall( (Id),(-servico(Id, _, _, _)),S ),
+/*+servico(Id, D, I, C) :: (findall( (Id),(-servico(Id, _, _, _)),S ),
                             length( S,N ), 
                             N == 1)
-                            .                  
+                            .*/                  
 
 %uma consulta e identificada univocamente pelo conjunto Data, IdUtente, IdSev
 +consulta(D, U, V, C) :: (findall( (D, U, V), (consulta(D, U, V, _)), S ),
