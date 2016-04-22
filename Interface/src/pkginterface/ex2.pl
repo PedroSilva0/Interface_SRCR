@@ -21,7 +21,10 @@
 :- dynamic servico/4.
 :- dynamic consulta/4.
 :- dynamic excecao/1.
-
+:- dynamic nulo/1.
+:- dynamic (+)/1.
+:- dynamic (-)/1.
+ 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
 
@@ -116,7 +119,7 @@ excecao(consulta(2015-09-01,2,1,C)) :- C>100, C<200.
 consulta(2030-05-12,1,xpto2,2000).
 excecao(consulta(A,B,C,D)) :- consulta(A,B,xpto2,D).
 nulo(xpto2).
-+consulta(A,B,C,D) :-(findall( CS,(consulta(2030-05-12,1,CS,2000),nao(nulo(CS))),LS),
++consulta(A,B,C,D) ::(findall( CS,(consulta(2030-05-12,1,CS,2000),nao(nulo(CS))),LS),
                     length(LS,N), 
                     N==0).
 
@@ -142,7 +145,7 @@ evolucaoInterdito(Termo,Excecao,Nulo,Inv) :-
                                     evolucao(Termo),
                                     evolucao(Excecao),
                                     evolucao(Nulo),
-                                    evolucao(Invariante). 
+                                    evolucao(Inv). 
 
 % Conhecimento impreciso
 

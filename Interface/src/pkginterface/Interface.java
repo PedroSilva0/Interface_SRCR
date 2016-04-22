@@ -11,8 +11,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -21,18 +19,13 @@ import java.util.logging.Logger;
 public class Interface extends javax.swing.JFrame {
 
     static SICStus da;
-    static int xptoI=100;
+    static int xptoI = 100;
     public static final BlockingQueue<Runnable> queue = new LinkedBlockingQueue<Runnable>();
 
     /**
      * Creates new form Interface
      */
     public Interface() {
-        /*try {
-            sp = new Prolog("src/pkginterface/ex2.pl");
-        } catch (SPException ex) {
-            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
         //init das janelas
         initComponents();
     }
@@ -63,6 +56,8 @@ public class Interface extends javax.swing.JFrame {
         jTextFieldCon_ser = new javax.swing.JTextField();
         jTextFieldCon_custo = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jComboBoxTipoConsulta = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldQuery = new javax.swing.JTextField();
@@ -86,6 +81,8 @@ public class Interface extends javax.swing.JFrame {
         jTextFieldUt_Nome = new javax.swing.JTextField();
         jTextFieldUt_Idade = new javax.swing.JTextField();
         jTextFieldUt_Morada = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        jComboTipoUtente = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -117,6 +114,11 @@ public class Interface extends javax.swing.JFrame {
         jLabel16.setText("Custo");
 
         jButtonCon_add.setText("Adicionar");
+        jButtonCon_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCon_addActionPerformed(evt);
+            }
+        });
 
         jButtonCon_rem.setText("Remover");
 
@@ -137,70 +139,93 @@ public class Interface extends javax.swing.JFrame {
 
         jLabel18.setText("€");
 
+        jLabel20.setText("Tipo de conhecimento");
+
+        jComboBoxTipoConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Perfeito", "Impreciso", "Incerto", "Interdito" }));
+        jComboBoxTipoConsulta.setSelectedItem(-1);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextFieldCon_custo, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel18))
-                    .addComponent(jLabel17)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel15))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldCon_ser, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
-                            .addComponent(jTextFieldCon_data)
-                            .addComponent(jTextFieldCon_uten)))
+                            .addComponent(jLabel17)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jButtonCon_add)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonCon_rem)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonCon_cons))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButtonCon_add)
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel16))
+                                .addGap(25, 25, 25)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldCon_custo)
+                                    .addComponent(jTextFieldCon_ser, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel13))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextFieldCon_uten, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(27, 27, 27)
+                                        .addComponent(jTextFieldCon_data, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonCon_rem)
-                        .addGap(27, 27, 27)
-                        .addComponent(jButtonCon_cons)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel18))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addComponent(jLabel20)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBoxTipoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jTextFieldCon_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jTextFieldCon_uten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(jTextFieldCon_ser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel16)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldCon_custo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel18)))
+                    .addComponent(jLabel20)
+                    .addComponent(jComboBoxTipoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldCon_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextFieldCon_uten, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldCon_ser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldCon_custo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCon_add)
                     .addComponent(jButtonCon_rem)
                     .addComponent(jButtonCon_cons))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGap(7, 7, 7)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane2.addTab("Consulta", jPanel3);
@@ -243,7 +268,7 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(jTextFieldQuery, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,6 +299,11 @@ public class Interface extends javax.swing.JFrame {
         jLabel4.setText("Morada");
 
         jButtonUt_add.setText("Adicionar");
+        jButtonUt_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUt_addActionPerformed(evt);
+            }
+        });
 
         jButtonUt_Rem.setText("Remover");
         jButtonUt_Rem.addActionListener(new java.awt.event.ActionListener() {
@@ -291,6 +321,11 @@ public class Interface extends javax.swing.JFrame {
         jTextAreaUt_res.setRows(5);
         jScrollPane2.setViewportView(jTextAreaUt_res);
 
+        jLabel21.setText("Tipo de conhecimento");
+
+        jComboTipoUtente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Perfeito", "Impreciso", "Incerto", "Interdito" }));
+        jComboTipoUtente.setSelectedItem(-1);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -300,60 +335,73 @@ public class Interface extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(jLabel5))
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel6)
-                                        .addComponent(jLabel3))
-                                    .addComponent(jLabel4))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextFieldUt_Id)
-                                    .addComponent(jTextFieldUt_Idade)
-                                    .addComponent(jTextFieldUt_Morada)
-                                    .addComponent(jTextFieldUt_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)))
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel6))
+                                .addGap(36, 36, 36)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldUt_Morada, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jTextFieldUt_Idade)
+                                        .addComponent(jTextFieldUt_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(11, 11, 11)
+                                    .addComponent(jLabel21)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jComboTipoUtente, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jTextFieldUt_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
+                        .addGap(50, 50, 50)
                         .addComponent(jButtonUt_add)
-                        .addGap(32, 32, 32)
-                        .addComponent(jButtonUt_Rem)
                         .addGap(18, 18, 18)
+                        .addComponent(jButtonUt_Rem)
+                        .addGap(30, 30, 30)
                         .addComponent(jButtonUt_Cons)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboTipoUtente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jTextFieldUt_Id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextFieldUt_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextFieldUt_Idade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextFieldUt_Morada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel6))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldUt_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextFieldUt_Idade, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextFieldUt_Morada, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonUt_add)
                     .addComponent(jButtonUt_Rem)
                     .addComponent(jButtonUt_Cons))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -393,6 +441,7 @@ public class Interface extends javax.swing.JFrame {
         jLabel19.setText("Tipo de conhecimento");
 
         jComboBoxTipoServico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Perfeito", "Impreciso", "Incerto", "Interdito" }));
+        jComboBoxTipoServico.setSelectedItem(-1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -440,7 +489,7 @@ public class Interface extends javax.swing.JFrame {
                                 .addComponent(jButtonSer_rem)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButtonSer_cons)))))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -494,43 +543,12 @@ public class Interface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRunActionPerformed
-        //final String res;
-        //SICStus sp;
-        //Query query;
-        //HashMap wayMap = new HashMap();
-        /*new Thread(() -> {
-            queue.add((Runnable) () -> {
-                res=executaQuery(da, jTextFieldQuery.getText());
-            });
-        }).start();*/
-
         new Thread(() -> {
-            //String res;
             queue.add((Runnable) () -> {
-                //String res;
                 String res = executaQuery(da, jTextFieldQuery.getText());
                 jTextAreaResult.setText(res);
             });
         }).start();
-
-        /*try {
-            //sp = new SICStus(null, null);
-            //sp.load("tp1_vfinal");
-            //sp.restore("teste.sav");
-            query = naoDa.openPrologQuery(jTextFieldQuery.getText(), wayMap);
-            try {
-                StringBuilder res=new StringBuilder();
-                while (query.nextSolution()) {
-                    res.append(wayMap.toString());
-                    res.append("\n");
-                }
-                jTextAreaResult.setText(res.toString());
-            } finally {
-                query.close();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
     }//GEN-LAST:event_jButtonRunActionPerformed
 
     private void jTextFieldCon_custoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCon_custoActionPerformed
@@ -538,7 +556,6 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldCon_custoActionPerformed
 
     private void jButtonSer_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSer_addActionPerformed
-        //String id, desc, inst, cidade,query,res;
         String tipo = jComboBoxTipoServico.getSelectedItem().toString();
         switch (tipo) {
             case "Perfeito": {
@@ -548,13 +565,14 @@ public class Interface extends javax.swing.JFrame {
                         String desc = jTextFieldSer_des.getText();
                         String inst = jTextFieldSer_inst.getText();
                         String cidade = jTextFieldSer_cid.getText();
-                        String query= "evolucao(servico("+id+","+desc+","+inst+","+cidade+")).";
-                        //System.out.println(query);
-                        String res= executaQueryBool(da, query);
+                        String query = "evolucao(servico(" + id + "," + desc + "," + inst + "," + cidade + ")).";
+                        System.out.println(query);
+                        String res = executaQueryBool(da, query);
                         jTextAreaSer_res.setText(res);
                     });
                 }).start();
-            }break;
+            }
+            break;
             case "Impreciso": {
                 new Thread(() -> {
                     queue.add((Runnable) () -> {
@@ -562,35 +580,87 @@ public class Interface extends javax.swing.JFrame {
                         String desc = jTextFieldSer_des.getText();
                         String inst = jTextFieldSer_inst.getText();
                         String cidade = jTextFieldSer_cid.getText();
-                        String query= "evolucaoImpreciso(excecao(servico("+id+","+desc+","+inst+","+cidade+"))).";
-                        //System.out.println(query);
-                        String res= executaQueryBool(da, query);
+                        String query = "evolucaoImpreciso(excecao(servico(" + id + "," + desc + "," + inst + "," + cidade + "))).";
+                        System.out.println(query);
+                        String res = executaQueryBool(da, query);
                         jTextAreaSer_res.setText(res);
                     });
                 }).start();
-            }break;
-            case "Incerto":{
+            }
+            break;
+            case "Incerto": {
                 new Thread(() -> {
                     queue.add((Runnable) () -> {
-                        String query="";
+                        String query = "";
                         String id = jTextFieldSer_id.getText();
                         String desc = jTextFieldSer_des.getText();
                         String inst = jTextFieldSer_inst.getText();
                         String cidade = jTextFieldSer_cid.getText();
-                        if(id.equals("")){
-                            query="evolucaoIncerto(servico(xpto"+xptoI+","+desc+","+inst+","+cidade+"),(excecao(servico(A,B,C,D)) :- "
-                                    + "servico(A,B,C,xpto"+xptoI+"))).";
+                        if (id.equals("")) {
+                            query = "evolucaoIncerto(servico(xpto" + xptoI + "," + desc + "," + inst + "," + cidade + "),(excecao(servico(A,B,C,D)) :- "
+                                    + "servico(xpto" + xptoI + ",B,C,D))).";
                             xptoI++;
-                            System.out.println(query);
-                            //excecao(utente(A,B,C,D)) :- utente(A,B,C,xpto1).
+                        } else if (desc.equals("")) {
+                            query = "evolucaoIncerto(servico(" + id + ",xpto" + xptoI + "," + inst + "," + cidade + "),(excecao(servico(A,B,C,D)) :- "
+                                    + "servico(A,xpto" + xptoI + ",C,D))).";
+                            xptoI++;
+                        } else if (inst.equals("")) {
+                            query = "evolucaoIncerto(servico(" + id + "," + desc + ",xpto" + xptoI + "," + cidade + "),(excecao(servico(A,B,C,D)) :- "
+                                    + "servico(A,B,xpto" + xptoI + ",D))).";
+                            xptoI++;
+                        } else if (cidade.equals("")) {
+                            query = "evolucaoIncerto(servico(" + id + "," + desc + "," + inst + ",xpto" + xptoI + "),(excecao(servico(A,B,C,D)) :- "
+                                    + "servico(A,B,C,xpto" + xptoI + "))).";
+                            xptoI++;
                         }
-                        //query= "evolucaoIncerto(excecao(servico("+id+","+desc+","+inst+","+cidade+"))).";
-                        //System.out.println(query);
-                        String res= executaQueryBool(da, query);
+                        System.out.println(query);
+                        String res = executaQueryBool(da, query);
                         jTextAreaSer_res.setText(res);
                     });
                 }).start();
-            }break;
+            }
+            break;
+            case "Interdito": {
+                new Thread(() -> {
+                    queue.add((Runnable) () -> {
+                        String query = "";
+                        String id = jTextFieldSer_id.getText();
+                        String desc = jTextFieldSer_des.getText();
+                        String inst = jTextFieldSer_inst.getText();
+                        String cidade = jTextFieldSer_cid.getText();
+                        if (id.equals("")) {
+                            query = "evolucaoInterdito(servico(xpto" + xptoI + "," + desc + "," + inst + "," + cidade + "),(excecao(servico(A,B,C,D)) :- "
+                                    + "servico(xpto" + xptoI + ",B,C,D)),nulo(xpto"+xptoI+"),(+servico(A,B,C,D) :: "
+                                    + "(findall(CS,(servico(CS,"+ desc + "," + inst + "," + cidade + "),nao(nulo(CS))),LS),"
+                                    + "length(LS,N),N==0))).";
+                            xptoI++;
+                        } else if (desc.equals("")) {
+                            query = "evolucaoInterdito(servico(" + id + ",xpto" + xptoI + "," + inst + "," + cidade + "),(excecao(servico(A,B,C,D)) :- "
+                                    + "servico(A,xpto" + xptoI + ",C,D)),nulo(xpto"+xptoI+"),(+servico(A,B,C,D) :: "
+                                    + "(findall(CS,(servico("+id+",CS," + inst + "," + cidade + "),nao(nulo(CS))),LS),"
+                                    + "length(LS,N),N==0))).";
+                            xptoI++;
+                        } else if (inst.equals("")) {
+                            query = "evolucaoInterdito(servico(" + id + "," + desc + ",xpto" + xptoI + "," + cidade + "),(excecao(servico(A,B,C,D)) :- "
+                                    + "servico(A,B,xpto" + xptoI + ",D)),nulo(xpto"+xptoI+"),(+servico(A,B,C,D) :: "
+                                    + "(findall(CS,(servico("+id+","+ desc + ",CS," + cidade + "),nao(nulo(CS))),LS),"
+                                    + "length(LS,N),N==0))).";
+                            xptoI++;
+                        } else if (cidade.equals("")) {
+                            query = "evolucaoInterdito(servico(" + id + "," + desc + "," + inst + ",xpto" + xptoI + "),(excecao(servico(A,B,C,D)) :- "
+                                    + "servico(A,B,C,xpto" + xptoI + ")),nulo(xpto"+xptoI+"),(+servico(A,B,C,D) :: "
+                                    + "(findall(CS,(servico("+id+","+ desc + "," + inst + ",CS),nao(nulo(CS))),LS),"
+                                    + "length(LS,N),N==0))).";
+                            xptoI++;
+                        }
+                        String x="evolucao((+servico(A,B,C,D) :: (findall(CS,(servico(1500,bla,lk,CS),nao(nulo(CS))),LS),length(LS,N),N==0))).";
+                        System.out.println(query);
+                        String res = executaQueryBool(da, query);
+                        jTextAreaSer_res.setText(res);
+                    });
+                }).start();
+            }
+            break;
         }
     }//GEN-LAST:event_jButtonSer_addActionPerformed
 
@@ -650,51 +720,257 @@ public class Interface extends javax.swing.JFrame {
                 new Thread(() -> {
                     queue.add((Runnable) () -> {
                         String id = jTextFieldSer_id.getText();
-                        String query= "desevolucao(servico("+id+",_,_,_)).";
-                        String res= executaQueryBool(da, query);
+                        String query = "desevolucao(servico(" + id + ",_,_,_)).";
+                        String res = executaQueryBool(da, query);
                         jTextAreaSer_res.setText(res);
                     });
                 }).start();
-            }break;
-        case "Impreciso": {
+            }
+            break;
+            case "Impreciso": {
                 new Thread(() -> {
                     queue.add((Runnable) () -> {
                         String id = jTextFieldSer_id.getText();
                         String desc = jTextFieldSer_des.getText();
                         String inst = jTextFieldSer_inst.getText();
                         String cidade = jTextFieldSer_cid.getText();
-                        String query= "desevolucaoImpreciso(excecao(servico("+id+",_,_,_))).";
+                        String query = "desevolucaoImpreciso(excecao(servico(" + id + ",_,_,_))).";
                         //System.out.println(query);
-                        String res= executaQueryBool(da, query);
+                        String res = executaQueryBool(da, query);
                         jTextAreaSer_res.setText(res);
                     });
                 }).start();
-            }break;
+            }
+            break;
         }
     }//GEN-LAST:event_jButtonSer_remActionPerformed
+
+    private void jButtonCon_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCon_addActionPerformed
+        String tipo = jComboBoxTipoConsulta.getSelectedItem().toString();
+        switch (tipo) {
+            case "Perfeito": {
+                new Thread(() -> {
+                    queue.add((Runnable) () -> {
+                        String id = jTextFieldCon_data.getText();
+                        String desc = jTextFieldCon_uten.getText();
+                        String inst = jTextFieldCon_ser.getText();
+                        String cidade = jTextFieldCon_custo.getText();
+                        String query = "evolucao(consulta(" + id + "," + desc + "," + inst + "," + cidade + ")).";
+                        System.out.println(query);
+                        String res = executaQueryBool(da, query);
+                        jTextAreaCon_res.setText(res);
+                    });
+                }).start();
+            }
+            break;
+            case "Impreciso": {
+                new Thread(() -> {
+                    queue.add((Runnable) () -> {
+                        String id = jTextFieldCon_data.getText();
+                        String desc = jTextFieldCon_uten.getText();
+                        String inst = jTextFieldCon_ser.getText();
+                        String cidade = jTextFieldCon_custo.getText();
+                        String query = "evolucaoImpreciso(excecao(consulta(" + id + "," + desc + "," + inst + "," + cidade + "))).";
+                        //System.out.println(query);
+                        String res = executaQueryBool(da, query);
+                        jTextAreaCon_res.setText(res);
+                    });
+                }).start();
+            }
+            break;
+            case "Incerto": {
+                new Thread(() -> {
+                    queue.add((Runnable) () -> {
+                        String query = "";
+                        String id = jTextFieldCon_data.getText();
+                        String desc = jTextFieldCon_uten.getText();
+                        String inst = jTextFieldCon_ser.getText();
+                        String cidade = jTextFieldCon_custo.getText();
+                        if (id.equals("")) {
+                            query = "evolucaoIncerto(consulta(xpto" + xptoI + "," + desc + "," + inst + "," + cidade + "),(excecao(consulta(A,B,C,D)) :- "
+                                    + "consulta(xpto" + xptoI + ",B,C,D))).";
+                            xptoI++;
+                        } else if (desc.equals("")) {
+                            query = "evolucaoIncerto(consulta(" + id + ",xpto" + xptoI + "," + inst + "," + cidade + "),(excecao(consulta(A,B,C,D)) :- "
+                                    + "consulta(A,xpto" + xptoI + ",C,D))).";
+                            xptoI++;
+                        } else if (inst.equals("")) {
+                            query = "evolucaoIncerto(consulta(" + id + "," + desc + ",xpto" + xptoI + "," + cidade + "),(excecao(consulta(A,B,C,D)) :- "
+                                    + "consulta(A,B,xpto" + xptoI + ",D))).";
+                            xptoI++;
+                        } else if (cidade.equals("")) {
+                            query = "evolucaoIncerto(consulta(" + id + "," + desc + "," + inst + ",xpto" + xptoI + "),(excecao(consulta(A,B,C,D)) :- "
+                                    + "consulta(A,B,C,xpto" + xptoI + "))).";
+                            xptoI++;
+                        }
+                        System.out.println(query);
+                        String res = executaQueryBool(da, query);
+                        jTextAreaCon_res.setText(res);
+                    });
+                }).start();
+            }
+            break;
+            case "Interdito": {
+                new Thread(() -> {
+                    queue.add((Runnable) () -> {
+                        String query = "";
+                        String id = jTextFieldCon_data.getText();
+                        String desc = jTextFieldCon_uten.getText();
+                        String inst = jTextFieldCon_ser.getText();
+                        String cidade = jTextFieldCon_custo.getText();
+                        if (id.equals("")) {
+                            query = "evolucaoInterdito(consulta(xpto" + xptoI + "," + desc + "," + inst + "," + cidade + "),(excecao(consulta(A,B,C,D)) :- "
+                                    + "consulta(xpto" + xptoI + ",B,C,D)),nulo(xpto"+xptoI+"),(+consulta(A,B,C,D) :: "
+                                    + "(findall(CS,(consulta(CS,"+ desc + "," + inst + "," + cidade + "),nao(nulo(CS))),LS),"
+                                    + "length(LS,N),N==0))).";
+                            xptoI++;
+                        } else if (desc.equals("")) {
+                            query = "evolucaoInterdito(consulta(" + id + ",xpto" + xptoI + "," + inst + "," + cidade + "),(excecao(consulta(A,B,C,D)) :- "
+                                    + "consulta(A,xpto" + xptoI + ",C,D)),nulo(xpto"+xptoI+"),(+consulta(A,B,C,D) :: "
+                                    + "(findall(CS,(consulta("+id+",CS," + inst + "," + cidade + "),nao(nulo(CS))),LS),"
+                                    + "length(LS,N),N==0))).";
+                            xptoI++;
+                        } else if (inst.equals("")) {
+                            query = "evolucaoInterdito(consulta(" + id + "," + desc + ",xpto" + xptoI + "," + cidade + "),(excecao(consulta(A,B,C,D)) :- "
+                                    + "consulta(A,B,xpto" + xptoI + ",D)),nulo(xpto"+xptoI+"),(+consulta(A,B,C,D) :: "
+                                    + "(findall(CS,(consulta("+id+","+ desc + ",CS," + cidade + "),nao(nulo(CS))),LS),"
+                                    + "length(LS,N),N==0))).";
+                            xptoI++;
+                        } else if (cidade.equals("")) {
+                            query = "evolucaoInterdito(consulta(" + id + "," + desc + "," + inst + ",xpto" + xptoI + "),(excecao(consulta(A,B,C,D)) :- "
+                                    + "consulta(A,B,C,xpto" + xptoI + ")),nulo(xpto"+xptoI+"),(+consulta(A,B,C,D) :: "
+                                    + "(findall(CS,(consulta("+id+","+ desc + "," + inst + ",CS),nao(nulo(CS))),LS),"
+                                    + "length(LS,N),N==0))).";
+                            xptoI++;
+                        }
+                        String x="evolucao((+servico(A,B,C,D) :: (findall(CS,(servico(1500,bla,lk,CS),nao(nulo(CS))),LS),length(LS,N),N==0))).";
+                        System.out.println(query);
+                        String res = executaQueryBool(da, query);
+                        jTextAreaCon_res.setText(res);
+                    });
+                }).start();
+            }
+            break;
+        }
+    }//GEN-LAST:event_jButtonCon_addActionPerformed
+
+    private void jButtonUt_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUt_addActionPerformed
+       String tipo = jComboTipoUtente.getSelectedItem().toString();
+        switch (tipo) {
+            case "Perfeito": {
+                new Thread(() -> {
+                    queue.add((Runnable) () -> {
+                        String id = jTextFieldUt_Id.getText();
+                        String desc = jTextFieldUt_Nome.getText();
+                        String inst = jTextFieldUt_Idade.getText();
+                        String cidade = jTextFieldUt_Morada.getText();
+                        String query = "evolucao(utente(" + id + "," + desc + "," + inst + "," + cidade + ")).";
+                        System.out.println(query);
+                        String res = executaQueryBool(da, query);
+                        jTextAreaUt_res.setText(res);
+                    });
+                }).start();
+            }
+            break;
+            case "Impreciso": {
+                new Thread(() -> {
+                    queue.add((Runnable) () -> {
+                        String id = jTextFieldUt_Id.getText();
+                        String desc = jTextFieldUt_Nome.getText();
+                        String inst = jTextFieldUt_Idade.getText();
+                        String cidade = jTextFieldUt_Morada.getText();
+                        String query = "evolucaoImpreciso(excecao(utente(" + id + "," + desc + "," + inst + "," + cidade + "))).";
+                        //System.out.println(query);
+                        String res = executaQueryBool(da, query);
+                        jTextAreaUt_res.setText(res);
+                    });
+                }).start();
+            }
+            break;
+            case "Incerto": {
+                new Thread(() -> {
+                    queue.add((Runnable) () -> {
+                        String query = "";
+                        String id = jTextFieldUt_Id.getText();
+                        String desc = jTextFieldUt_Nome.getText();
+                        String inst = jTextFieldUt_Idade.getText();
+                        String cidade = jTextFieldUt_Morada.getText();
+                        if (id.equals("")) {
+                            query = "evolucaoIncerto(utente(xpto" + xptoI + "," + desc + "," + inst + "," + cidade + "),(excecao(utente(A,B,C,D)) :- "
+                                    + "utente(xpto" + xptoI + ",B,C,D))).";
+                            xptoI++;
+                        } else if (desc.equals("")) {
+                            query = "evolucaoIncerto(utente(" + id + ",xpto" + xptoI + "," + inst + "," + cidade + "),(excecao(utente(A,B,C,D)) :- "
+                                    + "utente(A,xpto" + xptoI + ",C,D))).";
+                            xptoI++;
+                        } else if (inst.equals("")) {
+                            query = "evolucaoIncerto(utente(" + id + "," + desc + ",xpto" + xptoI + "," + cidade + "),(excecao(utente(A,B,C,D)) :- "
+                                    + "utente(A,B,xpto" + xptoI + ",D))).";
+                            xptoI++;
+                        } else if (cidade.equals("")) {
+                            query = "evolucaoIncerto(utente(" + id + "," + desc + "," + inst + ",xpto" + xptoI + "),(excecao(utente(A,B,C,D)) :- "
+                                    + "utente(A,B,C,xpto" + xptoI + "))).";
+                            xptoI++;
+                        }
+                        System.out.println(query);
+                        String res = executaQueryBool(da, query);
+                        jTextAreaUt_res.setText(res);
+                    });
+                }).start();
+            }
+            break;
+            case "Interdito": {
+                new Thread(() -> {
+                    queue.add((Runnable) () -> {
+                        String query = "";
+                        String id = jTextFieldUt_Id.getText();
+                        String desc = jTextFieldUt_Nome.getText();
+                        String inst = jTextFieldUt_Idade.getText();
+                        String cidade = jTextFieldUt_Morada.getText();
+                        if (id.equals("")) {
+                            query = "evolucaoInterdito(utente(xpto" + xptoI + "," + desc + "," + inst + "," + cidade + "),(excecao(utente(A,B,C,D)) :- "
+                                    + "utente(xpto" + xptoI + ",B,C,D)),nulo(xpto"+xptoI+"),(+utente(A,B,C,D) :: "
+                                    + "(findall(CS,(utente(CS,"+ desc + "," + inst + "," + cidade + "),nao(nulo(CS))),LS),"
+                                    + "length(LS,N),N==0))).";
+                            xptoI++;
+                        } else if (desc.equals("")) {
+                            query = "evolucaoInterdito(utente(" + id + ",xpto" + xptoI + "," + inst + "," + cidade + "),(excecao(utente(A,B,C,D)) :- "
+                                    + "utente(A,xpto" + xptoI + ",C,D)),nulo(xpto"+xptoI+"),(+utente(A,B,C,D) :: "
+                                    + "(findall(CS,(utente("+id+",CS," + inst + "," + cidade + "),nao(nulo(CS))),LS),"
+                                    + "length(LS,N),N==0))).";
+                            xptoI++;
+                        } else if (inst.equals("")) {
+                            query = "evolucaoInterdito(utente(" + id + "," + desc + ",xpto" + xptoI + "," + cidade + "),(excecao(utente(A,B,C,D)) :- "
+                                    + "utente(A,B,xpto" + xptoI + ",D)),nulo(xpto"+xptoI+"),(+utente(A,B,C,D) :: "
+                                    + "(findall(CS,(utente("+id+","+ desc + ",CS," + cidade + "),nao(nulo(CS))),LS),"
+                                    + "length(LS,N),N==0))).";
+                            xptoI++;
+                        } else if (cidade.equals("")) {
+                            query = "evolucaoInterdito(utente(" + id + "," + desc + "," + inst + ",xpto" + xptoI + "),(excecao(utente(A,B,C,D)) :- "
+                                    + "utente(A,B,C,xpto" + xptoI + ")),nulo(xpto"+xptoI+"),(+utente(A,B,C,D) :: "
+                                    + "(findall(CS,(utente("+id+","+ desc + "," + inst + ",CS),nao(nulo(CS))),LS),"
+                                    + "length(LS,N),N==0))).";
+                            xptoI++;
+                        }
+                        String x="evolucao((+servico(A,B,C,D) :: (findall(CS,(servico(1500,bla,lk,CS),nao(nulo(CS))),LS),length(LS,N),N==0))).";
+                        System.out.println(query);
+                        String res = executaQueryBool(da, query);
+                        jTextAreaUt_res.setText(res);
+                    });
+                }).start();
+            }
+            break;
+        }
+    }//GEN-LAST:event_jButtonUt_addActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    /*public static void main(String args[]) throws SPException {
-       Interface i = new Interface();
-       i.setVisible(true);
-       naoDa = new SICStus(null, null);
-       naoDa.load("tp1_vfinal");
-       executaQuery(naoDa,"utente(X).");
-       
-        try {
-            ArrayList<String> q = i.sp.query("serv_por_inst(L,'hospital_de_braga').");
-            for(String s : q)
-                System.out.println(s);
-        } catch (Exception ex) {
-            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }*/
     public static void main(String[] args) throws Exception {
         Interface i = new Interface();
         i.setVisible(true);
         da = new SICStus(null, null);
+        //sp = new Prolog("src/pkginterface/ex2.pl");
         da.load("ex2");
         while (true) {
             queue.take().run();
@@ -749,8 +1025,8 @@ public class Interface extends javax.swing.JFrame {
         } else {
             return "no";
         }
-        //return trim(res.toString());
-        return "yes";
+        return trim(res.toString());
+        //return "yes";
     }
 
     private static String trim(String str) {
@@ -776,7 +1052,9 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JButton jButtonUt_Cons;
     private javax.swing.JButton jButtonUt_Rem;
     private javax.swing.JButton jButtonUt_add;
+    private javax.swing.JComboBox<String> jComboBoxTipoConsulta;
     private javax.swing.JComboBox<String> jComboBoxTipoServico;
+    private javax.swing.JComboBox<String> jComboTipoUtente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -789,6 +1067,8 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
