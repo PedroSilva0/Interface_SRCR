@@ -17,13 +17,14 @@
 % SICStus PROLOG: definicoes iniciais
 
 :- op( 900,xfy,'::' ).
+:- dynamie '::'/2.
 :- dynamic utente/4.
 :- dynamic servico/4.
 :- dynamic consulta/4.
 :- dynamic excecao/1.
 :- dynamic nulo/1.
-:- dynamic (+)/1.
-:- dynamic (-)/1.
+:- dynamic '+'/1.
+:- dynamic '-'/1.
  
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 
