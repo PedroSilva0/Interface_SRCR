@@ -1,7 +1,6 @@
 
 package pkginterface;
 
-//import java.util.ArrayList;
 import se.sics.jasper.*;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -85,6 +84,7 @@ public class Interface extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jComboBoxTipoConsulta = new javax.swing.JComboBox<>();
+        jButtonDemo = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldQuery = new javax.swing.JTextField();
@@ -144,18 +144,19 @@ public class Interface extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addGap(11, 11, 11)
-                            .addComponent(jLabel21)
-                            .addGap(18, 18, 18)
-                            .addComponent(jComboTipoUtente, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel6))
-                            .addGap(36, 36, 36)
-                            .addComponent(jButtonUt_add)
-                            .addGap(36, 36, 36)
-                            .addComponent(jButtonUt_Rem)))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel6)
+                                        .addComponent(jButtonUt_add))
+                                    .addGap(41, 41, 41)
+                                    .addComponent(jButtonUt_Rem))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel21)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jComboTipoUtente, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jTextFieldUt_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -352,6 +353,13 @@ public class Interface extends javax.swing.JFrame {
         jComboBoxTipoConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Perfeito", "Impreciso", "Incerto", "Interdito" }));
         jComboBoxTipoConsulta.setSelectedItem(-1);
 
+        jButtonDemo.setText("Consultar");
+        jButtonDemo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDemoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -371,11 +379,12 @@ public class Interface extends javax.swing.JFrame {
                                     .addComponent(jLabel17)
                                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGap(13, 13, 13)
                                         .addComponent(jButtonCon_add)
-                                        .addGap(44, 44, 44)
+                                        .addGap(29, 29, 29)
                                         .addComponent(jButtonCon_rem)
-                                        .addGap(86, 86, 86))))
+                                        .addGap(39, 39, 39)
+                                        .addComponent(jButtonDemo))))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(24, 24, 24)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -397,8 +406,8 @@ public class Interface extends javax.swing.JFrame {
                                                 .addComponent(jTextFieldCon_uten, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(jPanel3Layout.createSequentialGroup()
                                                 .addGap(27, 27, 27)
-                                                .addComponent(jTextFieldCon_data, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                .addComponent(jTextFieldCon_data, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel18)))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
@@ -429,7 +438,8 @@ public class Interface extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCon_add)
-                    .addComponent(jButtonCon_rem))
+                    .addComponent(jButtonCon_rem)
+                    .addComponent(jButtonDemo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel17)
                 .addGap(7, 7, 7)
@@ -813,8 +823,8 @@ public class Interface extends javax.swing.JFrame {
                         String desc = jTextFieldCon_uten.getText();
                         String inst = jTextFieldCon_ser.getText();
                         String cidade = jTextFieldCon_custo.getText();
-                        String query = "evolucao(consulta(" + id + "," + desc + "," + inst + "," + cidade + "),"
-                                + ",consulta("+id+","+desc+","+inst+",_),excecao(consulta("+id+","+desc+","+inst+",_))).";
+                        String query = "evolucaoPerfeito(consulta(" + id + "," + desc + "," + inst + "," + cidade + "),"
+                                + "consulta("+id+","+desc+","+inst+",_),excecao(consulta("+id+","+desc+","+inst+",_))).";
                         System.out.println(query);
                         String res = executaQueryBool(da, query);
                         jTextAreaCon_res.setText(res);
@@ -1109,14 +1119,31 @@ public class Interface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonCon_remActionPerformed
 
+    private void jButtonDemoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDemoActionPerformed
+        new Thread(() -> {
+                    queue.add((Runnable) () -> {
+                        String id = jTextFieldCon_data.getText();
+                        String desc = jTextFieldCon_uten.getText();
+                        String inst = jTextFieldCon_ser.getText();
+                        String cidade = jTextFieldCon_custo.getText();
+                        String query = "demoL([consulta(" + id + "," + desc + "," + inst + "," + cidade + "),"
+                                + "utente("+desc+",_,_,_),servico("+inst+",_,_,_)],L).";
+                        System.out.println(query);
+                        String res = executaQueryBool(da, query);
+                        jTextAreaCon_res.setText(res);
+                    });
+                }).start();
+    }//GEN-LAST:event_jButtonDemoActionPerformed
+
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String[] args) throws Exception {
         Interface i = new Interface();
         i.setVisible(true);
         da = new SICStus(null, null);
-        //sp = new Prolog("src/pkginterface/ex2.pl");
+        //da.load("src/pkginterface/ex2.pl");
         da.load("ex2");
         while (true) {
             queue.take().run();
@@ -1144,6 +1171,7 @@ public class Interface extends javax.swing.JFrame {
             return "Expressão errada";
         }
         return trim(res.toString());
+        //return res.toString();
     }
 
     private static String executaQueryBool(SICStus sp, String instru) {
@@ -1190,6 +1218,7 @@ public class Interface extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCon_add;
     private javax.swing.JButton jButtonCon_rem;
+    private javax.swing.JButton jButtonDemo;
     private javax.swing.JButton jButtonEx_Cons;
     private javax.swing.JButton jButtonRun;
     private javax.swing.JButton jButtonSer_add;
