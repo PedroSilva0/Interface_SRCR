@@ -125,7 +125,7 @@ evolucaoInterdito(Termo,Excecao,Nulo,Invariante) :-
                                     evolucao(Nulo),
                                     evolucao(Invariante).
 
-evolucaoInterdito(Termo,Excecao,Nulo,Invariante) :-
+desevolucaoInterdito(Termo,Excecao,Nulo,Invariante) :-
                                     desevolucao(Termo),
                                     desevolucao(Excecao),
                                     desevolucao(Nulo),
