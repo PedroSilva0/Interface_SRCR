@@ -198,7 +198,22 @@ demo( Questao,falso ) :-
     -Questao.
 demo( Questao,desconhecido ) :-
     nao( Questao ),
-    nao( -Questao ).    
+    nao( -Questao ).
+
+% Extenso do meta-predicado demoL: Lista,Resposta -> {V,F}
+demoL([H|T],R) :- demoL(T,R1), demo(H,R2), e(R1,R2,R).
+demoL([Q],R) :- demo(Q,R).
+
+%Tabela de verdade: V, V, R -> {V,F}
+e(verdadeiro,verdadeiro,verdadeiro).
+e(verdadeiro,falso,falso).    
+e(verdadeiro,desconhecido,desconhecido).  
+e(falso,verdadeiro,falso).
+e(falso,falso,falso).
+e(falso,desconhecido,falso).
+e(desconhecido,verdadeiro,desconhecido).
+e(desconhecido,falso,falso).
+e(desconhecido,desconhecido,desconhecido).
 
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
