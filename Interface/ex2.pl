@@ -94,15 +94,20 @@ utente(5,nuno_campos,2,xpto1).
 excecao(utente(A,B,C,D)) :- utente(A,B,C,xpto1).
 
 % IMPRECISO -- o doutor não colucou o custo das consultas. Apenas se sabe que custam entre 100 a 200 euros pela tabela de preços
-excecao(consulta(2015-08-15,2,4,C)) :- C>100, C<200. 
-excecao(consulta(2015-09-01,2,1,C)) :- C>100, C<200.
+% IMPRECISO -- devido a um bug com o programa de registo de consultas, algumas consultas ficaram com mais de que um custo, agora não se sabe qual o custo real.
+%excecao(consulta(2015-08-15,2,4,C)) :- C>100, C<200. 
+%excecao(consulta(2015-09-01,2,1,C)) :- C>100, C<200.
+excecao(consulta(2015-08-15,2,4,155)).
+excecao(consulta(2015-08-15,2,4,120)). 
+excecao(consulta(2015-09-01,2,1,50)).
+excecao(consulta(2015-09-01,2,1,74)). 
 
 
-% INTERDITO -- consulta da qual nunca se irá saber qual foi o serviço prestado.
-consulta(2030-05-12,1,xpto2,2000).
-excecao(consulta(A,B,C,D)) :- consulta(A,B,xpto2,D).
+% INTERDITO -- consulta da qual nunca se irá saber o custo.
+consulta(2015-05-12,1,1,xpto2).
+excecao(consulta(A,B,C,D)) :- consulta(A,B,C,xpto2).
 nulo(xpto2).
-+consulta(A,B,C,D) :: (findall( CS,(consulta(2030-05-12,1,CS,2000),nao(nulo(CS))),LS),
++consulta(A,B,C,D) :: (findall( CS,(consulta(2030-05-12,1,1,xpto2),nao(nulo(CS))),LS),
                     length(LS,N), 
                     N==0).
 
