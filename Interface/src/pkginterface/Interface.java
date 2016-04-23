@@ -1126,6 +1126,18 @@ public class Interface extends javax.swing.JFrame {
                         String desc = jTextFieldCon_uten.getText();
                         String inst = jTextFieldCon_ser.getText();
                         String cidade = jTextFieldCon_custo.getText();
+                        if(id.equals("")){
+                            id="_";
+                        }
+                        if(desc.equals("")){
+                            desc="_";
+                        }
+                        if(inst.equals("")){
+                            inst="_";
+                        }
+                        if(cidade.equals("")){
+                            cidade="_";
+                        }
                         String query = "demoL([consulta(" + id + "," + desc + "," + inst + "," + cidade + "),"
                                 + "utente("+desc+",_,_,_),servico("+inst+",_,_,_)],L).";
                         System.out.println(query);
