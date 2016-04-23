@@ -153,6 +153,18 @@ evolucaoInterdito(Termo,Excecao,Nulo,Inv) :-
 evolucaoImpreciso(Excecao):-
                             evolucao(Excecao).
 
+% Conhecimento perfeito
+
+evolucaoPerfeito(Termo,TermoAux,Excecao) :-
+                            limpaBase(TermoAux,Excecao),
+                            evolucao(Termo).
+
+
+limpaBase(TermoAux,Excecao) :- TermoAux,
+                                Excecao,
+                                desevolucao(TermoAux).
+limpaBase(TermoAux,Excecao) :- true.
+
 %excecao(utente(A,B,C,D)) :- utente(A,B,C,xpto1).
 %insercaoIncerto(Pre,C1,C2,C3,C4,I) :- I==1, assert(Pre(C1,C2,C3,C4)), assert(excecao(Pre(A,B,C,D)):- Pre(C1,B,C,D)).
 %insercaoImpreciso(Pre,C1,C2,C3,C4,I) :- I==1, retract(Pre(C1,C2,C3,C4)), retract(excecao(Pre(A,B,C,D)):- Pre(C1,B,C,D)),!,fail.

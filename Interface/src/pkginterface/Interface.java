@@ -961,6 +961,7 @@ public class Interface extends javax.swing.JFrame {
             }
             break;
         }
+        String s= "evolucaoPerfeito(utente(5,nuno_campos,2,100),utente(5,_,_,_),excecao(utente(5,_,_,_))).";
     }//GEN-LAST:event_jButtonUt_addActionPerformed
 
     /**
