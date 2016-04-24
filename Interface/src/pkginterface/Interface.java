@@ -433,10 +433,11 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(jLabel16)
                     .addComponent(jLabel18))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCon_add)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonCon_rem)
-                    .addComponent(jButtonDemo))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonCon_add)
+                        .addComponent(jButtonDemo)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel17)
                 .addGap(7, 7, 7)
@@ -644,7 +645,7 @@ public class Interface extends javax.swing.JFrame {
         new Thread(() -> {
             //String res;
             queue.add((Runnable) () -> {
-                String query="demo(["+jTextFieldQuery.getText()+"],R).";
+                String query="demo("+jTextFieldQuery.getText()+",R).";
                 //String res = executaQueryBool(da, jTextFieldQuery.getText());
                 String res = executaQueryBool(da, query);
                 jTextAreaResult.setText(res);
