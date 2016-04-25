@@ -146,25 +146,26 @@ public class Interface extends javax.swing.JFrame {
                             .addGap(11, 11, 11)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel6)
-                                        .addComponent(jButtonUt_add))
+                                    .addComponent(jButtonUt_add)
                                     .addGap(41, 41, 41)
                                     .addComponent(jButtonUt_Rem))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel21)
                                     .addGap(18, 18, 18)
                                     .addComponent(jComboTipoUtente, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jTextFieldUt_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addGap(36, 36, 36)
-                            .addComponent(jTextFieldUt_Id, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jTextFieldUt_Idade, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextFieldUt_Morada, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTextFieldUt_Morada, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextFieldUt_Idade, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                                .addComponent(jTextFieldUt_Nome)
+                                .addComponent(jTextFieldUt_Id)))))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -543,7 +544,6 @@ public class Interface extends javax.swing.JFrame {
                         String s= "evolucaoPerfeito(utente(5,nuno_campos,2,100),utente(5,_,_,_),excecao(utente(5,_,_,_))).";
                         String query = "evolucaoPerfeito(servico(" + id + "," + desc + "," + inst + "," + cidade + ")"
                                 + ",servico("+id+",_,_,_),excecao(servico("+id+",_,_,_))).";
-                        System.out.println(query);
                         String res = executaQueryBool(da, query);
                         jTextAreaSer_res.setText(res);
                     });
@@ -558,7 +558,6 @@ public class Interface extends javax.swing.JFrame {
                         String inst = jTextFieldSer_inst.getText();
                         String cidade = jTextFieldSer_cid.getText();
                         String query = "evolucaoImpreciso(excecao(servico(" + id + "," + desc + "," + inst + "," + cidade + "))).";
-                        System.out.println(query);
                         String res = executaQueryBool(da, query);
                         jTextAreaSer_res.setText(res);
                     });
@@ -590,7 +589,6 @@ public class Interface extends javax.swing.JFrame {
                                     + "servico(A,B,C,xpto" + xptoI + "))).";
                             xptoI++;
                         }
-                        System.out.println(query);
                         String res = executaQueryBool(da, query);
                         jTextAreaSer_res.setText(res);
                     });
@@ -630,8 +628,6 @@ public class Interface extends javax.swing.JFrame {
                                     + "length(LS,N),N==0))).";
                             xptoI++;
                         }
-                        String x="evolucao((+servico(A,B,C,D) :: (findall(CS,(servico(1500,bla,lk,CS),nao(nulo(CS))),LS),length(LS,N),N==0))).";
-                        System.out.println(query);
                         String res = executaQueryBool(da, query);
                         jTextAreaSer_res.setText(res);
                     });
@@ -663,7 +659,6 @@ public class Interface extends javax.swing.JFrame {
                         String query = "desevolucaoPerfeito(utente(" + id + ",_,_,_)).";
                         String res = executaQueryBool(da, query);
                         jTextAreaUt_res.setText(res);
-                        System.out.println(query);
                     });
                 }).start();
             }
@@ -674,7 +669,6 @@ public class Interface extends javax.swing.JFrame {
                         String id = jTextFieldUt_Id.getText();
                         String query = "desevolucaoImpreciso(excecao(utente(" + id + ",_,_,_))).";
                         String res = executaQueryBool(da, query);
-                        System.out.println(query);
                         jTextAreaUt_res.setText(res);
                     });
                 }).start();
@@ -686,7 +680,6 @@ public class Interface extends javax.swing.JFrame {
                         String id = jTextFieldUt_Id.getText();
                         String query = "desevolucaoIncerto(utente(" + id + ",_,_,_)).";
                         String res = executaQueryBool(da, query);
-                        System.out.println(query);
                         jTextAreaUt_res.setText(res);
                     });
                 }).start();
@@ -722,7 +715,6 @@ public class Interface extends javax.swing.JFrame {
                                     + "length(LS,N),N==0))).";
                         }
                         String x="evolucao((+servico(A,B,C,D) :: (findall(CS,(servico(1500,bla,lk,CS),nao(nulo(CS))),LS),length(LS,N),N==0))).";
-                        System.out.println(query);
                         String res = executaQueryBool(da, query);
                         jTextAreaUt_res.setText(res);
                     });
@@ -742,7 +734,6 @@ public class Interface extends javax.swing.JFrame {
                         String query = "desevolucaoPerfeito(servico(" + id + ",_,_,_)).";
                         String res = executaQueryBool(da, query);
                         jTextAreaSer_res.setText(res);
-                        System.out.println(query);
                     });
                 }).start();
             }
@@ -753,7 +744,6 @@ public class Interface extends javax.swing.JFrame {
                         String id = jTextFieldSer_id.getText();
                         String query = "desevolucaoImpreciso(excecao(servico(" + id + ",_,_,_))).";
                         String res = executaQueryBool(da, query);
-                        System.out.println(query);
                         jTextAreaSer_res.setText(res);
                     });
                 }).start();
@@ -765,7 +755,6 @@ public class Interface extends javax.swing.JFrame {
                         String id = jTextFieldSer_id.getText();
                         String query = "desevolucaoIncerto(servico(" + id + ",_,_,_)).";
                         String res = executaQueryBool(da, query);
-                        System.out.println(query);
                         jTextAreaSer_res.setText(res);
                     });
                 }).start();
@@ -800,8 +789,6 @@ public class Interface extends javax.swing.JFrame {
                                     + "(findall(CS,(servico("+id+","+ desc + "," + inst + ",CS),nao(nulo(CS))),LS),"
                                     + "length(LS,N),N==0))).";
                         }
-                        String x="evolucao((+servico(A,B,C,D) :: (findall(CS,(servico(1500,bla,lk,CS),nao(nulo(CS))),LS),length(LS,N),N==0))).";
-                        System.out.println(query);
                         String res = executaQueryBool(da, query);
                         jTextAreaSer_res.setText(res);
                     });
@@ -823,7 +810,6 @@ public class Interface extends javax.swing.JFrame {
                         String cidade = jTextFieldCon_custo.getText();
                         String query = "evolucaoPerfeito(consulta(" + id + "," + desc + "," + inst + "," + cidade + "),"
                                 + "consulta("+id+","+desc+","+inst+",_),excecao(consulta("+id+","+desc+","+inst+",_))).";
-                        System.out.println(query);
                         String res = executaQueryBool(da, query);
                         jTextAreaCon_res.setText(res);
                     });
@@ -838,7 +824,6 @@ public class Interface extends javax.swing.JFrame {
                         String inst = jTextFieldCon_ser.getText();
                         String cidade = jTextFieldCon_custo.getText();
                         String query = "evolucaoImpreciso(excecao(consulta(" + id + "," + desc + "," + inst + "," + cidade + "))).";
-                        //System.out.println(query);
                         String res = executaQueryBool(da, query);
                         jTextAreaCon_res.setText(res);
                     });
@@ -870,7 +855,6 @@ public class Interface extends javax.swing.JFrame {
                                     + "consulta(A,B,C,xpto" + xptoI + "))).";
                             xptoI++;
                         }
-                        System.out.println(query);
                         String res = executaQueryBool(da, query);
                         jTextAreaCon_res.setText(res);
                     });
@@ -910,8 +894,6 @@ public class Interface extends javax.swing.JFrame {
                                     + "length(LS,N),N==0))).";
                             xptoI++;
                         }
-                        String x="evolucao((+servico(A,B,C,D) :: (findall(CS,(servico(1500,bla,lk,CS),nao(nulo(CS))),LS),length(LS,N),N==0))).";
-                        System.out.println(query);
                         String res = executaQueryBool(da, query);
                         jTextAreaCon_res.setText(res);
                     });
@@ -933,7 +915,6 @@ public class Interface extends javax.swing.JFrame {
                         String cidade = jTextFieldUt_Morada.getText();
                         String query = "evolucaoPerfeito(utente(" + id + "," + desc + "," + inst + "," + cidade + ")"
                                 + ",utente("+id+",_,_,_),excecao(utente("+id+",_,_,_))).";
-                        System.out.println(query);
                         String res = executaQueryBool(da, query);
                         jTextAreaUt_res.setText(res);
                     });
@@ -948,7 +929,6 @@ public class Interface extends javax.swing.JFrame {
                         String inst = jTextFieldUt_Idade.getText();
                         String cidade = jTextFieldUt_Morada.getText();
                         String query = "evolucaoImpreciso(excecao(utente(" + id + "," + desc + "," + inst + "," + cidade + "))).";
-                        //System.out.println(query);
                         String res = executaQueryBool(da, query);
                         jTextAreaUt_res.setText(res);
                     });
@@ -980,7 +960,6 @@ public class Interface extends javax.swing.JFrame {
                                     + "utente(A,B,C,xpto" + xptoI + "))).";
                             xptoI++;
                         }
-                        System.out.println(query);
                         String res = executaQueryBool(da, query);
                         jTextAreaUt_res.setText(res);
                     });
@@ -1020,8 +999,6 @@ public class Interface extends javax.swing.JFrame {
                                     + "length(LS,N),N==0))).";
                             xptoI++;
                         }
-                        String x="evolucao((+servico(A,B,C,D) :: (findall(CS,(servico(1500,bla,lk,CS),nao(nulo(CS))),LS),length(LS,N),N==0))).";
-                        System.out.println(query);
                         String res = executaQueryBool(da, query);
                         jTextAreaUt_res.setText(res);
                     });
@@ -1029,7 +1006,6 @@ public class Interface extends javax.swing.JFrame {
             }
             break;
         }
-        String s= "evolucaoPerfeito(utente(5,nuno_campos,2,100),utente(5,_,_,_),excecao(utente(5,_,_,_))).";
     }//GEN-LAST:event_jButtonUt_addActionPerformed
 
     private void jButtonCon_remActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCon_remActionPerformed
@@ -1044,7 +1020,6 @@ public class Interface extends javax.swing.JFrame {
                         String query = "desevolucaoPerfeito(consulta(" + id + ","+desc+","+inst+",_)).";
                         String res = executaQueryBool(da, query);
                         jTextAreaCon_res.setText(res);
-                        System.out.println(query);
                     });
                 }).start();
             }
@@ -1057,7 +1032,6 @@ public class Interface extends javax.swing.JFrame {
                         String inst = jTextFieldCon_ser.getText();
                         String query = "desevolucaoImpreciso(excecao(consulta(" + id + ","+desc+","+inst+",_))).";
                         String res = executaQueryBool(da, query);
-                        System.out.println(query);
                         jTextAreaCon_res.setText(res);
                     });
                 }).start();
@@ -1071,7 +1045,6 @@ public class Interface extends javax.swing.JFrame {
                         String inst = jTextFieldCon_ser.getText();
                         String query = "desevolucaoIncerto(consulta(" + id + ","+desc+","+inst+",_)).";
                         String res = executaQueryBool(da, query);
-                        System.out.println(query);
                         jTextAreaCon_res.setText(res);
                     });
                 }).start();
@@ -1106,8 +1079,6 @@ public class Interface extends javax.swing.JFrame {
                                     + "(findall(CS,(consulta("+id+","+ desc + "," + inst + ",CS),nao(nulo(CS))),LS),"
                                     + "length(LS,N),N==0))).";
                         }
-                        String x="evolucao((+servico(A,B,C,D) :: (findall(CS,(servico(1500,bla,lk,CS),nao(nulo(CS))),LS),length(LS,N),N==0))).";
-                        System.out.println(query);
                         String res = executaQueryBool(da, query);
                         jTextAreaCon_res.setText(res);
                     });
@@ -1138,7 +1109,6 @@ public class Interface extends javax.swing.JFrame {
                         }
                         String query = "demoL([consulta(" + id + "," + desc + "," + inst + "," + cidade + "),"
                                 + "utente("+desc+",_,_,_),servico("+inst+",_,_,_)],L).";
-                        System.out.println(query);
                         String res = executaQueryBool(da, query);
                         jTextAreaCon_res.setText(res);
                     });
@@ -1168,7 +1138,6 @@ public class Interface extends javax.swing.JFrame {
             query = sp.openPrologQuery(instru, wayMap);
             try {
                 while (query.nextSolution()) {
-                    //System.out.println(wayMap.size());
                     res.append(wayMap.toString());
                     res.append("\n");
                 }
@@ -1176,12 +1145,9 @@ public class Interface extends javax.swing.JFrame {
                 query.close();
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            //query.close();
             return "Expressão errada";
         }
         return trim(res.toString());
-        //return res.toString();
     }
 
     private static String executaQueryBool(SICStus sp, String instru) {
@@ -1192,10 +1158,8 @@ public class Interface extends javax.swing.JFrame {
             b = sp.query(instru, wayMap);
         } catch (SPException ex) {
             return "Expressão errada";
-            //Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (b) {
-            System.out.println(wayMap.size());
             if (wayMap.size() == 0) {
                 return "yes";
             }
@@ -1204,23 +1168,19 @@ public class Interface extends javax.swing.JFrame {
                 HashMap.Entry pair = (HashMap.Entry) it.next();
                 res.append(pair.getValue());
                 res.append("\n");
-                //it.remove(); // avoids a ConcurrentModificationException
             }
         } else {
             return "no";
         }
-        //return trim(res.toString());
-        //return "yes";
+        if(wayMap.size()>1){
+            return "yes";
+        }
         return res.toString();
     }
 
     private static String trim(String str) {
         //remove caracteres desnecessarios
         str = str.replaceAll("[/.{}()\\[\\]]", "");
-        //remove inicio: "L=...."
-        //str = str.substring(2);
-        //remove ultima virgula
-        //str = str.substring(0, str.length() - 1);
         return str;
     }
 
